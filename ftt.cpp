@@ -13,7 +13,7 @@
 //Mikhail Vasilchenko -1
 //Filip Filiposki -2
 
-//Patrick Leonello
+//Patrick Leonello -3
 int main(int argc, char **argv)
 {
     /* validate command line arguments */
