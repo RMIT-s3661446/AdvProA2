@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
+#include "MainMenu.h"
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -12,7 +13,7 @@
  //commit check sign your name here and commit:
 //Mikhail Vasilchenko -1
 //Filip Filiposki -2
-//Hello
+
 //Patrick Leonello -3
 int main(int argc, char **argv)
 {
@@ -22,7 +23,7 @@ int main(int argc, char **argv)
 
     
 
-    std::cout << "Just a test, nothing implemented yet!" << std::endl;
-    
+    //std::cout << "Just a test, nothing implemented yet!" << std::endl;
+    MainMenu::menuStart();
     return EXIT_SUCCESS;
 }
