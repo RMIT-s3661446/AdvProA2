@@ -9,11 +9,9 @@
 
 
 
- //commit check sign your name here and commit:
+//commit check sign your name here and commit:
 //Mikhail Vasilchenko -1
-//Filip Filiposki -2
 
-//Patrick Leonello -3
 int main(int argc, char **argv)
 {
     /* validate command line arguments */
