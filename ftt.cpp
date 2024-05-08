@@ -24,6 +24,6 @@ int main(int argc, char **argv)
     
 
     //std::cout << "Just a test, nothing implemented yet!" << std::endl;
-    MainMenu::menuStart();
+    //MainMenu::menuStart();
     return EXIT_SUCCESS;
 }
