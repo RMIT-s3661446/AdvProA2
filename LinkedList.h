@@ -9,6 +9,9 @@ public:
     LinkedList();
     ~LinkedList();
 
+    void addItem(FoodItem item);
+    void removeItem(FoodItem item);
+
     // more functions to be added perhaps...
 
 private:
