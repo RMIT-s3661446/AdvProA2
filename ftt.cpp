@@ -24,6 +24,15 @@ int main(int argc, char **argv)
     
 
     std::cout << "Just a test, nothing implemented yet!" << std::endl;
+
+
+
+    /*LinkedList foodList;
+
+    foodList.insertAtBeginning(FoodItem("002", "Burek", "hjkfhdkf", 5));
+    foodList.insertAtEnd(FoodItem("003", "Chevapi", "hjkfhdkf", 3));
+    foodList.insertAtBeginning(FoodItem("001", "Borscht", "hjkfhdkf", 2));
+    foodList.traverse();*/
     //MainMenu::menuStart();
     return EXIT_SUCCESS;
 }

@@ -9,10 +9,25 @@ public:
     LinkedList();
     ~LinkedList();
 
-    void addItem(FoodItem item);
-    void removeItem(FoodItem item);
-
     // more functions to be added perhaps...
+
+    //Insertion functions
+    void insertAtBeginning(FoodItem item);
+    void insertAtEnd(FoodItem item);
+    void insertInPosition();
+
+    void deleteFromBeginning();
+    void deleteFromEnd();
+    void deleteFromPostion();
+
+    void traverse();
+
+    Node* search();
+
+    int size();
+    bool isEmpty();
+    Node* getHead();
+    void clear();
 
 private:
     // the beginning of the list

@@ -41,6 +41,9 @@ public:
 class FoodItem
 {
 public:
+    FoodItem();
+    FoodItem(std::string id, std::string name, std::string description, int Price);
+    ~FoodItem();
     //the unique id for this food item
     std::string id;
 
@@ -51,10 +54,11 @@ public:
     std::string description;
     
     //the price of this food item
-    Price price;
+    //Price price;
+    int Price; //for testing only
     
     // how many of this food item do we have on hand? 
-    unsigned on_hand;    
+    //unsigned on_hand;    
 };
 
 /**
@@ -64,9 +68,10 @@ class Node
 {
 public:
     Node();
+    Node(FoodItem item);
     ~Node();
     // pointer to the data held for the node 
-    FoodItem* data;
+    FoodItem data;
     // pointer to the next node in the list 
     Node* next;
 };
