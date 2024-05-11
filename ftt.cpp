@@ -27,12 +27,22 @@ int main(int argc, char **argv)
 
 
 
-    /*LinkedList foodList;
+    LinkedList foodList;
 
     foodList.insertAtBeginning(FoodItem("002", "Burek", "hjkfhdkf", 5));
     foodList.insertAtEnd(FoodItem("003", "Chevapi", "hjkfhdkf", 3));
     foodList.insertAtBeginning(FoodItem("001", "Borscht", "hjkfhdkf", 2));
-    foodList.traverse();*/
+
+    //std::cout << "Size: " << foodList.size() << std::endl;
+
+    //foodList.deleteFromBeginning();
+    foodList.deleteFromEnd();
+
+    //std::cout << "Size: " << foodList.size() << std::endl;;
+
+    foodList.traverse();
+
+    foodList.clear();
     //MainMenu::menuStart();
     return EXIT_SUCCESS;
 }
