@@ -51,14 +51,21 @@ void LinkedList::deleteFromBeginning(){
 
 void LinkedList::deleteFromEnd(){
     if (head != nullptr){
-        Node* lastNode = head;
-        Node* deletedNode = head;
-        while(lastNode -> next -> next != nullptr){
-            lastNode = lastNode -> next;
+        if (head -> next == nullptr){
+            delete head;
+            head = nullptr;
         }
-        deletedNode = lastNode -> next;
-        lastNode -> next = nullptr;
-        delete deletedNode;
+        else{
+            Node* lastNode = head;
+            Node* deletedNode = head;
+            while(lastNode -> next -> next != nullptr){
+                lastNode = lastNode -> next;
+            }
+            deletedNode = lastNode -> next;
+            lastNode -> next = nullptr;
+            delete deletedNode;
+        }
+
     }
 }
 
