@@ -1,7 +1,16 @@
 #include "MainMenu.h"
 #include <iostream>
 
-MainMenu::void menuStart(){
+MainMenu::MainMenu()
+{
+}
+
+MainMenu::~MainMenu()
+{
+}
+
+void MainMenu::menuStart()
+{
     std::cout << "Main Menu:" << std::endl
     << "  1. Display Meal Options" << std::endl
     << "  2. Purchase Meal" << std::endl

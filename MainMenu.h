@@ -1,12 +1,12 @@
 #ifndef MENU_H
 #define MENU_H
 
-private:{
-
-}
 
 class MainMenu {
     public:
+
+    MainMenu();
+    ~MainMenu();
     
     void menuStart();
     void menuDisplay();

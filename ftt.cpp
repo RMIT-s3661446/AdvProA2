@@ -4,7 +4,7 @@
 
 #include "LinkedList.h"
 #include "ReadWriter.cpp"
-//#include "MainMenu.h"
+#include "MainMenu.h"
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -20,7 +20,7 @@
 //I am testing too// Whetever
 //Patrick Leonello -3 lwdoakdoadoaod
 
-void loadFoodItems(LinkedList* list, std::string fileName);
+//void loadFoodItems(LinkedList* list, std::string fileName);
 
 
 
@@ -28,6 +28,9 @@ int main(int argc, char **argv)
 {
     /* validate command line arguments */
     // TODO
+    MainMenu* menu = new MainMenu();
+    menu -> menuStart();
+
     std::cout << "Just a test, nothing implemented yet!" << std::endl;
     LinkedList foodList;
     ReadWriter::loadFoodItems(&foodList, "foods.dat");
