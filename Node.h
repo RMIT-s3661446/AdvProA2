@@ -42,7 +42,7 @@ class FoodItem
 {
 public:
     FoodItem();
-    FoodItem(std::string id, std::string name, std::string description, int Price);
+    FoodItem(std::string id, std::string name, std::string description, double Price);
     ~FoodItem();
     //the unique id for this food item
     std::string id;
@@ -55,7 +55,7 @@ public:
     
     //the price of this food item
     //Price price;
-    int Price; //for testing only
+    double Price; //for testing only
     
     // how many of this food item do we have on hand? 
     //unsigned on_hand;    

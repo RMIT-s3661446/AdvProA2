@@ -19,10 +19,11 @@ public:
     void deleteFromBeginning();
     void deleteFromEnd();
     void deleteFromPostion();
+    void deleteNode(Node* node);
 
     void traverse();
 
-    Node* search();
+    Node* searchByID(std::string item);
 
     int size();
     bool isEmpty();

@@ -15,6 +15,8 @@ void LinkedList::insertAtBeginning(FoodItem item){
     Node* newNode = new Node(item);
     newNode -> next = head;
     head =  newNode;
+
+    //std::cout << "node added" << std::endl;
 }
 
 void LinkedList::insertAtEnd(FoodItem item){
@@ -69,6 +71,16 @@ void LinkedList::deleteFromEnd(){
     }
 }
 
+/*void LinkedList::deleteNode(Node *node)
+{
+    if (head != nullptr){
+        Node* tempNode = head;
+        Node* deletedNode;
+        while(tempNode != nullptr){
+
+        }
+    }
+}*/
 
 void LinkedList::traverse(){
     Node* tempNode = head;
@@ -79,6 +91,20 @@ void LinkedList::traverse(){
         << " Price: $" << tempNode -> data.Price << std::endl;
         tempNode = tempNode -> next;
     }
+}
+
+Node *LinkedList::searchByID(std::string itemID)
+{
+    Node* searchedNode = head;
+    Node* returnNode = nullptr;
+    while(searchedNode != nullptr){
+        if (itemID == (searchedNode->data.id)){
+            returnNode = searchedNode;
+        }
+        searchedNode = searchedNode -> next;
+    }
+
+    return returnNode;
 }
 
 int LinkedList::size()
