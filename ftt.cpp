@@ -29,12 +29,12 @@ int main(int argc, char **argv)
     /* validate command line arguments */
     // TODO
     MainMenu* menu = new MainMenu();
-    menu -> menuStart();
+    menu -> displayMainMenu();
 
     std::cout << "Just a test, nothing implemented yet!" << std::endl;
     LinkedList foodList;
     ReadWriter::loadFoodItems(&foodList, "foods.dat");
-    foodList.traverse();
+    //foodList.traverse();
     foodList.clear();
     return EXIT_SUCCESS;
 }
