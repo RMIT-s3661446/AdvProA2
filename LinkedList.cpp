@@ -12,22 +12,22 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::insertAtBeginning(FoodItem item){
-    Node* newNode = new Node(item);
-    newNode -> next = head;
-    head =  newNode;
+    Node* newNode = new Node(item); //creates new node
+    newNode -> next = head; //pushes the head
+    head =  newNode; //designeates new node as the head
 
     //std::cout << "node added" << std::endl;
 }
 
 void LinkedList::insertAtEnd(FoodItem item){
-    Node* newNode = new Node(item);
-    if (head == nullptr){
+    Node* newNode = new Node(item); //creates new node
+    if (head == nullptr){ //if list is empty, makes the new node the head
         head = newNode;
     }
 
     else{
         Node* tempNode = head;
-        while (tempNode -> next != nullptr){
+        while (tempNode -> next != nullptr){ //iterates throughout the list, until founds empty
             tempNode = tempNode -> next;
         }
         tempNode -> next = newNode;
@@ -44,8 +44,8 @@ void LinkedList::deleteFromBeginning(){
     
     if (head != nullptr){
         Node* deletedNode = head;
-        head = head -> next;
-        delete deletedNode;
+        head = head -> next; //desigates next node as the head node
+        delete deletedNode; //deletes first node
     }
     
     
@@ -54,18 +54,18 @@ void LinkedList::deleteFromBeginning(){
 void LinkedList::deleteFromEnd(){
     if (head != nullptr){
         if (head -> next == nullptr){
-            delete head;
-            head = nullptr;
+            delete head; //deletes head node
+            head = nullptr; //designates null pointer as the head
         }
         else{
-            Node* lastNode = head;
-            Node* deletedNode = head;
-            while(lastNode -> next -> next != nullptr){
+            Node* lastNode = head; 
+            Node* deletedNode;
+            while(lastNode -> next -> next != nullptr){ //starts looking for the second last node
                 lastNode = lastNode -> next;
             }
-            deletedNode = lastNode -> next;
-            lastNode -> next = nullptr;
-            delete deletedNode;
+            deletedNode = lastNode -> next; //designates the last node as the node to be deleted
+            lastNode -> next = nullptr; //sets the null pointer to the last node
+            delete deletedNode; //deletes from the memory
         }
 
     }
