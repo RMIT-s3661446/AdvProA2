@@ -9,6 +9,8 @@
 
 MainMenu::MainMenu()
 {
+    hasQuit = false;
+    userChoice = 0;
 }
 
 MainMenu::~MainMenu()
@@ -17,19 +19,19 @@ MainMenu::~MainMenu()
 
 void MainMenu::menuStart()
 {
-    std::cout << "Main Menu:" << std::endl
-    << "  1. Display Meal Options" << std::endl
-    << "  2. Purchase Meal" << std::endl
-    << "  3. Save and Exit" << std::endl
-    << "Adminstrator-Only Menu" << std::endl
-    << "  4. Add Food" << std::endl
-    << "  5. Remove Food" << std::endl
-    << "  6. Display Balance" << std::endl
-    << "  7. Abort Program" << std::endl
-    << "Select your option: ";
+    do{
+        displayMainMenu();
+        std::cin >> userChoice;
+        handleMenuSelection(userChoice);
+
+    }
+    while (hasQuit != true);
+    
 }
 
 //******************************
+
+
 
 void MainMenu::displayMainMenu() {
     std::cout << "Main Menu:\n";
@@ -41,6 +43,7 @@ void MainMenu::displayMainMenu() {
     std::cout << "   5. Remove Food\n";
     std::cout << "   6. Display Balance\n";
     std::cout << "   7. Abort Program\n";
+    std::cout << "Select your choice: " << std::endl;
 }
 
 bool MainMenu::handleMenuSelection(int option) {
@@ -51,7 +54,8 @@ bool MainMenu::handleMenuSelection(int option) {
     } else if (option == 3) {
         std::cout << "Saving and exiting.\n";
         // Exits the main loop
-        return false;
+        hasQuit = true;
+        //return false;
     } else if (option == 4) {
         addFood();
     } else if (option == 5) {

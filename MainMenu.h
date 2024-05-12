@@ -20,6 +20,9 @@ class MainMenu {
     void displayBalance();
     void abortProgram();
 
+    bool hasQuit;
+    int userChoice;
+
 
 
 

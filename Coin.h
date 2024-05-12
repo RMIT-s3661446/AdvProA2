@@ -22,6 +22,12 @@ public:
     
     // the count of how many of these are in the cash register
     unsigned count;
+
+    //Converts coin to int value of cents
+    static int coinToCents(Denomination coinDenom);
+
+    //converts cents to coin
+    static Denomination centsToCoin(int cents);
 };
 
 #endif // COIN_H

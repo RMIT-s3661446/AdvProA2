@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     //std::cout << "Just a test, nothing implemented yet!" << std::endl;
     LinkedList foodList;
     ReadWriter::loadFoodItems(&foodList, "foods.dat");
-    menu -> displayMainMenu();
+    menu -> menuStart();
     //foodList.traverse();
     foodList.clear();
     delete menu;
