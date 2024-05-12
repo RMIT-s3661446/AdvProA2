@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "LinkedList.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -11,6 +12,10 @@ MainMenu::MainMenu()
 {
     hasQuit = false;
     userChoice = 0;
+}
+
+MainMenu::MainMenu(LinkedList* foodList){
+    this -> foodList = foodList;
 }
 
 MainMenu::~MainMenu()
@@ -79,12 +84,13 @@ void MainMenu::displayFoodMenu() {
               << std::setw(80) << "Description" << "|"
               << std::setw(6) << "Price\n";
     std::cout << "------------------------------------------------------------------\n";
-    /*for (const auto &food : Food) {
-        std::cout << std::left << std::setw(6) << food.id << "|"
-                  << std::setw(10) << food.name << "|"
-                  << std::setw(80) << food.description << "|"
-                  << std::right << std::fixed << std::setprecision(2) << std::setw(6) << food.price << "\n";
-    }*/
+    std::vector<FoodItem> foodVector = foodList -> returnFoodVector();
+    for (int i = 0; i < (int)foodVector.size(); i++) {
+        std::cout << std::left << std::setw(6) << foodVector[i].id << "|"
+                  << std::setw(10) << foodVector[i].name << "|"
+                  << std::setw(80) << foodVector[i].description << "|"
+                  << std::right << std::fixed << std::setprecision(2) << std::setw(6) << foodVector[i].Price << "\n";
+    }
 }
 
 void MainMenu::purchaseMeal() {

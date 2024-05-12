@@ -28,9 +28,10 @@ int main(int argc, char **argv)
 {
     /* validate command line arguments */
     // TODO
-    MainMenu* menu = new MainMenu();
+    
     //std::cout << "Just a test, nothing implemented yet!" << std::endl;
     LinkedList foodList;
+    MainMenu* menu = new MainMenu(&foodList);
     ReadWriter::loadFoodItems(&foodList, "foods.dat");
     menu -> menuStart();
     //foodList.traverse();

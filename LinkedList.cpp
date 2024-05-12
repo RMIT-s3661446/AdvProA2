@@ -122,6 +122,16 @@ int LinkedList::size()
     return size;
 }
 
+
+void LinkedList::sortByName(){
+    if (head != nullptr){
+        for (int i = 0; i > size(); i++){
+            
+        }
+    }
+}
+
+
 void LinkedList::clear()
 {
     Node* current = head;
@@ -135,4 +145,19 @@ void LinkedList::clear()
 
     head = nullptr;
 
+}
+
+std::vector<FoodItem> LinkedList::returnFoodVector()
+{
+    std::vector<FoodItem> foodVector;
+    
+    if (head != nullptr){
+        Node* tempNode = head;
+        while (tempNode != nullptr){
+            foodVector.push_back(tempNode ->data);
+            tempNode = tempNode -> next;
+        }
+    }
+
+    return foodVector;
 }

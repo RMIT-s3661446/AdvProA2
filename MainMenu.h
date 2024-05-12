@@ -2,12 +2,14 @@
 #define MENU_H
 
 #include "LinkedList.h"
+#include "LinkedList.h"
 
 
 class MainMenu {
     public:
 
     MainMenu();
+    MainMenu(LinkedList* foodList);
     ~MainMenu();
 
 
@@ -22,6 +24,7 @@ class MainMenu {
 
     bool hasQuit;
     int userChoice;
+    LinkedList* foodList;
 
 
 

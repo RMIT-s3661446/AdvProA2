@@ -1,6 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include "Node.h"
+#include <vector>
 
 
 class LinkedList
@@ -23,12 +24,18 @@ public:
 
     void traverse();
 
+    void sortByName();
+
     Node* searchByID(std::string item);
 
     int size();
     bool isEmpty();
     Node* getHead();
     void clear();
+
+    std::vector<FoodItem> returnFoodVector();
+
+    
 
 private:
     // the beginning of the list
