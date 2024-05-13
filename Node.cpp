@@ -31,6 +31,6 @@ Node::Node(FoodItem item){
 };
 
 Node::~Node(){
-    // TODO
+    //delete data;
 };
 

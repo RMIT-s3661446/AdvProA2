@@ -22,6 +22,7 @@ MainMenu::MainMenu(LinkedList* foodList){
 
 MainMenu::~MainMenu()
 {
+    foodList->clear();
 }
 
 void MainMenu::menuStart()
@@ -128,7 +129,7 @@ void MainMenu::addFood() {
 
     // Create and add a new FoodItem to the list
     FoodItem newFood(idStream.str(), name, description, priceInCents);
-    foodList->add(newFood);
+    foodList->insertAtEnd(newFood);
 
     // Confirmation message
     std::cout << "This item \"" << name << " - " << description
@@ -154,6 +155,7 @@ void MainMenu::removeFood() {
     } else {
         std::cout << "No item found with ID " << foodID << std::endl;
     }
+    
 }
 
 void MainMenu::displayBalance() {

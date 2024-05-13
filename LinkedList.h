@@ -15,8 +15,8 @@ public:
     void add(FoodItem item);
 
     //Insertion functions
-    void insertAtBeginning(FoodItem item);
-    void insertAtEnd(FoodItem item);
+    void insertAtBeginning(const FoodItem& item);
+    void insertAtEnd(const FoodItem& item);
     void insertInPosition();
     void insertSorted(FoodItem item);
 

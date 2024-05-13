@@ -12,18 +12,20 @@ LinkedList::~LinkedList() {
     // TODO
 }
 
-void LinkedList::insertAtBeginning(FoodItem item){
+void LinkedList::insertAtBeginning(const FoodItem& item){
     Node* newNode = new Node(item); //creates new node
     newNode -> next = head; //pushes the head
     head =  newNode; //designeates new node as the head
+    head -> next = nullptr;
     count += 1;
     //std::cout << "node added" << std::endl;
 }
 
-void LinkedList::insertAtEnd(FoodItem item){
+void LinkedList::insertAtEnd(const FoodItem& item){
     Node* newNode = new Node(item); //creates new node
     if (head == nullptr){ //if list is empty, makes the new node the head
         head = newNode;
+        head -> next = nullptr;
     }
 
     else{
@@ -32,6 +34,7 @@ void LinkedList::insertAtEnd(FoodItem item){
             tempNode = tempNode -> next;
         }
         tempNode -> next = newNode;
+        newNode -> next = nullptr;
     }
     count += 1;
 }
@@ -246,7 +249,7 @@ Node *LinkedList::mergeSort(Node *head)
 
         result = merge(left, right);
 
-        return result;
+        //return result;
     }
     
     

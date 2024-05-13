@@ -30,15 +30,16 @@ int main(int argc, char **argv)
     // TODO
     
     //std::cout << "Just a test, nothing implemented yet!" << std::endl;
-    LinkedList foodList;
+    LinkedList* foodList = new LinkedList();
     //Coin coins[NUM_DENOMS];
     
-    MainMenu* menu = new MainMenu(&foodList);
-    ReadWriter::loadFoodItems(&foodList, "foods.dat");
+    MainMenu* menu = new MainMenu(foodList);
+    ReadWriter::loadFoodItems(foodList, "foods.dat");
     //ReadWriter::loadCoinInformation(coins, "coins.dat");
     menu -> menuStart();
     //foodList.traverse();
-    foodList.clear();
+    foodList -> clear();
     delete menu;
+    delete foodList;
     return EXIT_SUCCESS;
 }
