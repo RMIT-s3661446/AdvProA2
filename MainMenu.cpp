@@ -171,6 +171,37 @@ void MainMenu::displayBalance() {
     }
 }
 
+/* potential displayBalance ?
+    std::vector<Coin> coins;
+
+    void displayBalance() {
+        // Sort coins by denomination
+        std::sort(coins.begin(), coins.end(), [](const Coin& a, const Coin& b) {
+            return a.denom < b.denom;
+        });
+
+        // Header
+        std::cout << "Balance Summary\n";
+        std::cout << "-------------\n";
+        std::cout << "Denom | Quantity | Value\n";
+        std::cout << "---------------------------\n";
+
+        double totalValue = 0.0;
+        // Display each denomination's details
+        for (const auto& coin : coins) {
+            double value = coin.denom * coin.count / 100.0; // Convert cents to dollars
+            totalValue += value;
+
+            std::cout << std::right << std::setw(5) << coin.denom << " |"
+                      << std::right << std::setw(9) << coin.count << " |$"
+                      << std::right << std::setw(6) << std::fixed << std::setprecision(2) << value << std::endl;
+        }
+
+        std::cout << "---------------------------\n";
+        std::cout << "$ " << std::fixed << std::setprecision(2) << totalValue << std::endl;
+    }
+};*/
+
 void MainMenu::abortProgram() {
     std::cout << "Aborting program...\n";
     exit(0);
