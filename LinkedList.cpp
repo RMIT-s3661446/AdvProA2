@@ -64,6 +64,20 @@ int LinkedList::getNextID() {
     return result;  // Return the result from a single exit point
 }
 
+void LinkedList::add(FoodItem item) {
+    Node* newNode = new Node(item);
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+    count++;
+}
+
 void LinkedList::insertInPosition(){
     //TODO
 }
