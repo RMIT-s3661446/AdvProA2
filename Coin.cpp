@@ -36,4 +36,58 @@
 
     return cents;
  }
+ Denomination Coin::centsToCoin(int cents)
+ {
+    Denomination coinDenom;
+    switch (cents){
+        case 5:
+        coinDenom = FIVE_CENTS;
+        break;
+
+        case 10:
+        coinDenom = TEN_CENTS;
+        break;
+
+        case 20:
+        coinDenom = TWENTY_CENTS;
+        break;
+
+        case 50:
+        coinDenom = FIFTY_CENTS;
+        break;
+
+        case 100:
+        coinDenom = ONE_DOLLAR;
+        break;
+
+        case 200:
+        coinDenom = TWO_DOLLARS;
+        break;
+
+        case 500:
+        coinDenom = FIVE_DOLLARS;
+        break;
+
+        case 1000:
+        coinDenom = TEN_DOLLARS;
+        break;
+
+        case 2000:
+        coinDenom = TWENTY_DOLLARS;
+        break;
+
+        case 5000:
+        coinDenom = FIFTY_DOLLARS;
+        break;
+
+        
+        default:
+        coinDenom = FIVE_CENTS;
+        break;
+
+    }
+
+    return coinDenom;
+    
+ }
  // implement functions for managing coins; this may depend on your design.

@@ -31,8 +31,11 @@ int main(int argc, char **argv)
     
     //std::cout << "Just a test, nothing implemented yet!" << std::endl;
     LinkedList foodList;
+    //Coin coins[NUM_DENOMS];
+    
     MainMenu* menu = new MainMenu(&foodList);
     ReadWriter::loadFoodItems(&foodList, "foods.dat");
+    //ReadWriter::loadCoinInformation(coins, "coins.dat");
     menu -> menuStart();
     //foodList.traverse();
     foodList.clear();

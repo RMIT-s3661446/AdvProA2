@@ -25,6 +25,7 @@ class MainMenu {
     bool hasQuit;
     int userChoice;
     LinkedList* foodList;
+    Coin coins[];
 
 
 

@@ -16,6 +16,12 @@ MainMenu::MainMenu()
 
 MainMenu::MainMenu(LinkedList* foodList){
     this -> foodList = foodList;
+    hasQuit = false;
+    userChoice = 0;
+
+    /*for (int i = 0; i < NUM_DENOMS; i++){
+        this -> coins[i] = coins[i];
+    }*/
 }
 
 MainMenu::~MainMenu()
@@ -122,6 +128,11 @@ void MainMenu::removeFood() {
 void MainMenu::displayBalance() {
     // Placeholder function for displaying balance
     std::cout << "Display Balance - To be implemented\n";
+
+    for (int i = 0; i > NUM_DENOMS; i++){
+        std::cout << "Line " << i + 1 << ". Value: " << Coin::coinToCents(coins[i].denom)
+        << ". Count: " << coins[i].count << std::endl;
+    }
 }
 
 void MainMenu::abortProgram() {
