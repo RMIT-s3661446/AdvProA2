@@ -3,6 +3,7 @@
 
 LinkedList::LinkedList() {
    head = nullptr;
+   count = 0;
 
    // TODO
 }
@@ -15,7 +16,7 @@ void LinkedList::insertAtBeginning(FoodItem item){
     Node* newNode = new Node(item); //creates new node
     newNode -> next = head; //pushes the head
     head =  newNode; //designeates new node as the head
-
+    count += 1;
     //std::cout << "node added" << std::endl;
 }
 
@@ -32,6 +33,7 @@ void LinkedList::insertAtEnd(FoodItem item){
         }
         tempNode -> next = newNode;
     }
+    count += 1;
 }
 
 
@@ -40,12 +42,18 @@ void LinkedList::insertInPosition(){
     //TODO
 }
 
+void LinkedList::insertSorted(FoodItem item)
+{
+
+}
+
 void LinkedList::deleteFromBeginning(){
     
     if (head != nullptr){
         Node* deletedNode = head;
         head = head -> next; //desigates next node as the head node
         delete deletedNode; //deletes first node
+        count -= 1;
     }
     
     
@@ -66,6 +74,7 @@ void LinkedList::deleteFromEnd(){
             deletedNode = lastNode -> next; //designates the last node as the node to be deleted
             lastNode -> next = nullptr; //sets the null pointer to the last node
             delete deletedNode; //deletes from the memory
+            count -= 1;
         }
 
     }
@@ -82,7 +91,35 @@ void LinkedList::deleteFromEnd(){
     }
 }*/
 
-void LinkedList::traverse(){
+void LinkedList::deleteByID(std::string ID)
+{
+    if (head != nullptr){
+        Node* tempNode;
+        Node* deletedNode = nullptr;
+
+        if (head -> data.id == ID){
+            deletedNode = head;
+            tempNode = head -> next;
+            delete deletedNode;
+            head = tempNode;
+        }
+        else{
+            tempNode = head;
+            while (tempNode != nullptr && tempNode -> next != nullptr){
+                if (tempNode -> next ->data.id == ID){
+                    deletedNode = tempNode -> next;
+                    tempNode -> next = tempNode -> next -> next;
+                    delete deletedNode;
+                }
+                tempNode = tempNode -> next;
+            }
+        }  
+
+    }
+}
+
+void LinkedList::traverse()
+{
     Node* tempNode = head;
     while(tempNode != nullptr){
         std::cout << "ID: " << tempNode -> data.id 
@@ -109,26 +146,12 @@ Node *LinkedList::searchByID(std::string itemID)
 
 int LinkedList::size()
 {
-    int size = 0;
-
-    if (head != nullptr){
-        Node* tempNode = head;
-        while (tempNode != nullptr){
-            size = size + 1;
-            tempNode = tempNode -> next;
-        }
-    }
-
-    return size;
+    return count;
 }
 
 
 void LinkedList::sortByName(){
-    if (head != nullptr){
-        for (int i = 0; i > size(); i++){
-            
-        }
-    }
+    mergeSort(head);
 }
 
 
@@ -160,4 +183,55 @@ std::vector<FoodItem> LinkedList::returnFoodVector()
     }
 
     return foodVector;
+}
+
+Node *LinkedList::mergeSort(Node *head)
+{
+    Node* result = nullptr;
+    if (head == nullptr || head -> next == nullptr){
+        result = head;
+    }
+    else {
+        Node* slow = head;
+        Node* fast = head -> next;
+        while (fast != nullptr && fast -> next != nullptr){
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        Node* mid = slow -> next;
+        slow -> next = nullptr;
+
+        Node* left = mergeSort(head);
+        Node* right = mergeSort(mid);
+
+        result = merge(left, right);
+
+        return result;
+    }
+    
+    
+    return result;
+}
+
+Node *LinkedList::merge(Node *left, Node *right)
+{
+    Node* result = nullptr;
+
+    if (left == nullptr){
+        result = right;
+    }
+    else if (right == nullptr){
+        result = left;
+    }
+    else if(left -> data.name <= right -> data.name){
+        result = left;
+        result -> next = merge(left -> next, right);
+    }
+    else if(right -> data.name <= left -> data.name){
+        result = right;
+        result -> next = merge (left, right -> next);
+    }
+
+    return result;
+    
 }

@@ -84,6 +84,7 @@ void MainMenu::displayFoodMenu() {
               << std::setw(80) << "Description" << "|"
               << std::setw(6) << "Price\n";
     std::cout << "------------------------------------------------------------------\n";
+    foodList -> sortByName();
     std::vector<FoodItem> foodVector = foodList -> returnFoodVector();
     for (int i = 0; i < (int)foodVector.size(); i++) {
         std::cout << std::left << std::setw(6) << foodVector[i].id << "|"
@@ -106,6 +107,16 @@ void MainMenu::addFood() {
 void MainMenu::removeFood() {
     // Placeholder function for removing a food
     std::cout << "Remove Food - To be implemented\n";
+
+    //debug line
+    
+    std::string foodID;
+    std::cout << "Enter the ID of the food that you want to remove: ";
+    std::cin >> foodID;
+
+    foodList -> deleteByID(foodID);
+
+
 }
 
 void MainMenu::displayBalance() {

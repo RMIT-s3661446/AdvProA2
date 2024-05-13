@@ -58,7 +58,7 @@ public:
     double Price; //for testing only
     
     // how many of this food item do we have on hand? 
-    //unsigned on_hand;    
+    unsigned on_hand;    
 };
 
 /**

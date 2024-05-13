@@ -16,11 +16,13 @@ public:
     void insertAtBeginning(FoodItem item);
     void insertAtEnd(FoodItem item);
     void insertInPosition();
+    void insertSorted(FoodItem item);
 
     void deleteFromBeginning();
     void deleteFromEnd();
     void deleteFromPostion();
     void deleteNode(Node* node);
+    void deleteByID(std::string ID);
 
     void traverse();
 
@@ -40,6 +42,11 @@ public:
 private:
     // the beginning of the list
     Node* head;
+
+    Node* mergeSort(Node* head);
+    Node* merge(Node* left, Node* right);
+
+
   
     // how many nodes are there in the list?
     unsigned count;

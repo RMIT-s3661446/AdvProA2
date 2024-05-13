@@ -13,6 +13,7 @@ FoodItem::FoodItem(std::string id, std::string name, std::string description, do
     this -> name = name;
     this -> description = description;
     this -> Price = price;
+    on_hand = DEFAULT_FOOD_STOCK_LEVEL;
 }
 
 FoodItem::~FoodItem(){
