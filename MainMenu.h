@@ -4,6 +4,14 @@
 #include "LinkedList.h"
 #include "LinkedList.h"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <limits>
+
 
 class MainMenu {
     public:
