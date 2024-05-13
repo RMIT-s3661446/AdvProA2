@@ -36,7 +36,47 @@ void LinkedList::insertAtEnd(FoodItem item){
     count += 1;
 }
 
+//method to get the next available ID
+int LinkedList::getNextID() {
+    int result = 1;  // Default value if list is empty or no gaps found
 
+    if (head != nullptr) {
+        Node* current = head;
+        int expectedID = 1;  // Start checking from ID 1
+        bool foundGap = false;  // Flag to indicate a gap in IDs
+
+        while (current != nullptr && !foundGap) {
+            int currentID = std::stoi(current->data.id.substr(1));  // Assuming ID format is 'Fxxxx'
+            if (currentID != expectedID) {
+                foundGap = true;  // Set flag when a gap is found
+                result = expectedID;  // Set result to the next available ID
+            } else {
+                expectedID++;
+                current = current->next;
+            }
+        }
+
+        if (!foundGap) {
+            result = expectedID;  // If no gap is found, the next ID is the incremented expectedID
+        }
+    }
+
+    return result;  // Return the result from a single exit point
+}
+
+void LinkedList::add(FoodItem item) {
+    Node* newNode = new Node(item);
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+    count++;
+}
 
 void LinkedList::insertInPosition(){
     //TODO

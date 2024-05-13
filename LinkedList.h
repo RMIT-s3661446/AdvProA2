@@ -11,6 +11,8 @@ public:
     ~LinkedList();
 
     // more functions to be added perhaps...
+    int getNextID();  //  method to get the next available ID
+    void add(FoodItem item);
 
     //Insertion functions
     void insertAtBeginning(FoodItem item);
