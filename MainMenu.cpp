@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 #include "LinkedList.h"
-
+#include <cctype> 
 
 
 
@@ -125,6 +125,10 @@ void MainMenu::addFood() {
     std::string name;
     std::getline(std::cin, name);
     std::cout << name.size() << std::endl;
+    // Convert the first character to uppercase
+    if (!name.empty()) {
+        name[0] = std::toupper(name[0]);
+    }
     
     //If name is empty return to the main menu
     if (name.size() != 0){
