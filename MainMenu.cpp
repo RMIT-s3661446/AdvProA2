@@ -29,8 +29,21 @@ void MainMenu::menuStart()
 {
     do{
         displayMainMenu();
-        std::cin >> userChoice;
-        handleMenuSelection(userChoice);
+        try
+        {
+            std::string userInput;
+            std::getline(std::cin, userInput);
+            userChoice = std::stoi(userInput);
+           // std::cin >> userChoice;
+            handleMenuSelection(userChoice);
+        }
+        catch(const std::exception& e)
+        {
+            //std::cerr << e.what() << '\n';
+            std::cout << "Please enter a number for the option!!" << std::endl << std::endl;
+        }
+        
+
 
     }
     while (hasQuit != true);
