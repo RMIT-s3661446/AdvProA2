@@ -94,19 +94,20 @@ bool MainMenu::handleMenuSelection(int option) {
 
 void MainMenu::displayFoodMenu() {
     std::cout << "Food Menu\n";
-    std::cout << "--------------\n";
-    std::cout << std::setw(6) << "ID" << "|"
+    std::cout << "--------------------------------------------------------------------------------------------------\n";
+    std::cout << std::left << std::setw(6) << "ID" << "|"
               << std::setw(10) << "Name" << "|"
-              << std::setw(80) << "Description" << "|"
-              << std::setw(6) << "Price\n";
-    std::cout << "------------------------------------------------------------------\n";
-    foodList -> sortByName();
-    std::vector<FoodItem> foodVector = foodList -> returnFoodVector();
-    for (int i = 0; i < (int)foodVector.size(); i++) {
-        std::cout << std::left << std::setw(6) << foodVector[i].id << "|"
-                  << std::setw(10) << foodVector[i].name << "|"
-                  << std::setw(80) << foodVector[i].description << "|"
-                  << std::right << std::fixed << std::setprecision(2) << std::setw(6) << foodVector[i].Price << "\n";
+              << std::setw(70) << "Description" << "|"
+              << std::right << std::setw(10) << "Price" << "\n";
+    std::cout << "--------------------------------------------------------------------------------------------------\n";
+    foodList->sortByName();
+    std::vector<FoodItem> foodVector = foodList->returnFoodVector();
+    for (const auto& item : foodVector) {
+        std::string description = item.description.length() > 67 ? item.description.substr(0, 67) + "..." : item.description;
+        std::cout << std::left << std::setw(6) << item.id << "|"
+                  << std::setw(10) << item.name << "|"
+                  << std::setw(70) << description << "|"
+                  << std::right << std::fixed << std::setprecision(2) << std::setw(10) << item.Price / 100.0 << "\n";
     }
 }
 
