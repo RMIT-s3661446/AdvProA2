@@ -124,7 +124,6 @@ void MainMenu::addFood() {
     std::cout << "Enter the item name: ";
     std::string name;
     std::getline(std::cin, name);
-    std::cout << name.size() << std::endl;
     
     //If name is empty return to the main menu
     if (name.size() != 0){
@@ -156,6 +155,8 @@ void MainMenu::addFood() {
                     std::stringstream idStream;
                     idStream << 'F' << std::setw(4) << std::setfill('0') << nextID;
 
+                    name[0] = std::toupper(name[0]);
+
                     // Create and add a new FoodItem to the list
                     FoodItem newFood(idStream.str(), name, description, priceInCents);
                     foodList->insertSorted(newFood); // Used insertSorted to keep the list in order
@@ -175,24 +176,14 @@ void MainMenu::addFood() {
             }
             
         }
-        else{
-            std::cout << "Descroption is too long" << std::endl;
-        }
+        else{std::cout << "Descroption is too long" << std::endl;}
 
-        }
-        else{
-            std::cout << std::endl << "Returning to the main menu" << std::endl;
-        }
-        
+        }else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
 
     }
-    else {
-        std::cout << "Name is too long" << std::endl;
+    else {std::cout << "Name is too long" << std::endl;}
     }
-    }
-    else{
-        std::cout << std::endl << "Returning to the main menu" << std::endl;
-    }
+    else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
 }
 
 
