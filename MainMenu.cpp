@@ -118,37 +118,71 @@ void MainMenu::purchaseMeal() {
 
 void MainMenu::addFood() {
     // Clear the buffer before taking any inputs
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear any leftover characters in the input buffer
+    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear any leftover characters in the input buffer
 
     // Get input from user for the name
     std::cout << "Enter the item name: ";
     std::string name;
     std::getline(std::cin, name);
+    std::cout << name.size() << std::endl;
 
-    // Get input from user for the description
-    std::cout << "Enter the item description: ";
-    std::string description;
-    std::getline(std::cin, description);
+    if (name.size() != 0){
 
-    double price;
-    std::cout << "Enter the price for this item (in dollars and cents, e.g., 5.25): ";
-    std::cin >> price;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer again after reading a numeric input
+        
+        // Get input from user for the description
+        std::cout << "Enter the item description: ";
+        std::string description;
+        std::getline(std::cin, description);
 
-    // Handle the ID formatting and price conversion
-    int priceInCents = static_cast<int>(price * 100);  // Convert dollars to cents
-    int nextID = foodList->getNextID();
-    std::stringstream idStream;
-    idStream << 'F' << std::setw(4) << std::setfill('0') << nextID;
+        if (description != ""){
+            
+            std::cout << "Enter the price for this item (in dollars and cents, e.g., 5.25): ";
+            try
+            {
+                std::string userInput;
+                std::getline(std::cin, userInput);
+                if (userInput != ""){
+                    double price;
+                    price = std::stod(userInput);
+                    //std::cin >> price;
+                    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer again after reading a numeric input
 
-    // Create and add a new FoodItem to the list
-    FoodItem newFood(idStream.str(), name, description, priceInCents);
-    foodList->insertSorted(newFood); // Used insertSorted to keep the list in order
+                    // Handle the ID formatting and price conversion
+                    int priceInCents = static_cast<int>(price * 100);  // Convert dollars to cents
+                    int nextID = foodList->getNextID();
+                    std::stringstream idStream;
+                    idStream << 'F' << std::setw(4) << std::setfill('0') << nextID;
+
+                    // Create and add a new FoodItem to the list
+                    FoodItem newFood(idStream.str(), name, description, priceInCents);
+                    foodList->insertSorted(newFood); // Used insertSorted to keep the list in order
     
 
-    // Confirmation message
-    std::cout << "This item \"" << name << " - " << description
-              << "\" has now been added to the food menu with ID " << idStream.str() << std::endl;
+                    // Confirmation message
+                    std::cout << "This item \"" << name << " - " << description
+                              << "\" has now been added to the food menu with ID " << idStream.str() << std::endl;
+                }
+                else{
+                    std::cout << std::endl << "Returning to the main menu" << std::endl;
+                }
+            }
+            catch(const std::exception& e)
+            {
+                std::cout << "Please enter the number" << std::endl;
+            }
+            
+            
+        }
+        else{
+            std::cout << std::endl << "Returning to the main menu" << std::endl;
+        }
+        
+
+        
+    }
+    else{
+        std::cout << std::endl << "Returning to the main menu" << std::endl;
+    }
 }
 
 
