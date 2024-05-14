@@ -129,7 +129,8 @@ void MainMenu::addFood() {
 
     // Create and add a new FoodItem to the list
     FoodItem newFood(idStream.str(), name, description, priceInCents);
-    foodList->insertAtEnd(newFood);
+    foodList->insertSorted(newFood); // Used insertSorted to keep the list in order
+    
 
     // Confirmation message
     std::cout << "This item \"" << name << " - " << description

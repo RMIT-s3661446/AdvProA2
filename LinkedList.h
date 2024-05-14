@@ -18,7 +18,7 @@ public:
     void insertAtBeginning(const FoodItem& item);
     void insertAtEnd(const FoodItem& item);
     void insertInPosition();
-    void insertSorted(FoodItem item);
+    void insertSorted(const FoodItem& item);
 
     void deleteFromBeginning();
     void deleteFromEnd();

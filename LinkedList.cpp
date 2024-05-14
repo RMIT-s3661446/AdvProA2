@@ -37,7 +37,7 @@ void LinkedList::insertAtEnd(const FoodItem& item){
         newNode -> next = nullptr;
     }
     count += 1;
-    sortByName(); // Sort the list after adding the new item
+
 }
 
 //method to get the next available ID
@@ -70,16 +70,31 @@ void LinkedList::add(FoodItem item) {
         current->next = newNode;
     }
     count++;
-    sortByName(); // Sort the list after adding the new item
+ 
 }
 
 void LinkedList::insertInPosition(){
     //TODO
 }
 
-void LinkedList::insertSorted(FoodItem item)
-{
+void LinkedList::insertSorted(const FoodItem& item) {
+    Node* newNode = new Node(item);
+    Node* current;
 
+    // Special case for the head end or an empty list
+    if (head == nullptr || head->data.name >= item.name) {
+        newNode->next = head;
+        head = newNode;
+    } else {
+        // Locate the node before the point of insertion
+        current = head;
+        while (current->next != nullptr && current->next->data.name < item.name) {
+            current = current->next;
+        }
+        newNode->next = current->next;
+        current->next = newNode;
+    }
+    count++;
 }
 
 void LinkedList::deleteFromBeginning(){
