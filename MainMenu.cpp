@@ -125,9 +125,10 @@ void MainMenu::addFood() {
     std::string name;
     std::getline(std::cin, name);
     std::cout << name.size() << std::endl;
-
+    
+    //If name is empty return to the main menu
     if (name.size() != 0){
-
+        if (name.size() < NAMELEN){
         
         // Get input from user for the description
         std::cout << "Enter the item description: ";
@@ -135,6 +136,8 @@ void MainMenu::addFood() {
         std::getline(std::cin, description);
 
         if (description != ""){
+
+            if(description.size() < DESCLEN){
             
             std::cout << "Enter the price for this item (in dollars and cents, e.g., 5.25): ";
             try
@@ -171,14 +174,21 @@ void MainMenu::addFood() {
                 std::cout << "Please enter the number" << std::endl;
             }
             
-            
+        }
+        else{
+            std::cout << "Descroption is too long" << std::endl;
+        }
+
         }
         else{
             std::cout << std::endl << "Returning to the main menu" << std::endl;
         }
         
 
-        
+    }
+    else {
+        std::cout << "Name is too long" << std::endl;
+    }
     }
     else{
         std::cout << std::endl << "Returning to the main menu" << std::endl;
