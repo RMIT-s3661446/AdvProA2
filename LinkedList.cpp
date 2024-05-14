@@ -37,34 +37,25 @@ void LinkedList::insertAtEnd(const FoodItem& item){
         newNode -> next = nullptr;
     }
     count += 1;
+    sortByName(); // Sort the list after adding the new item
 }
 
 //method to get the next available ID
 int LinkedList::getNextID() {
-    int result = 1;  // Default value if list is empty or no gaps found
+    if (head == nullptr) return 1; // Return the first ID if list is empty
 
-    if (head != nullptr) {
-        Node* current = head;
-        int expectedID = 1;  // Start checking from ID 1
-        bool foundGap = false;  // Flag to indicate a gap in IDs
+    Node* current = head;
+    int maxID = 0; // Variable to track the maximum ID found
 
-        while (current != nullptr && !foundGap) {
-            int currentID = std::stoi(current->data.id.substr(1));  // Assuming ID format is 'Fxxxx'
-            if (currentID != expectedID) {
-                foundGap = true;  // Set flag when a gap is found
-                result = expectedID;  // Set result to the next available ID
-            } else {
-                expectedID++;
-                current = current->next;
-            }
+    // Loop through all nodes to find the highest ID
+    while (current != nullptr) {
+        int currentID = std::stoi(current->data.id.substr(1)); // Assuming ID format 'Fxxxx'
+        if (currentID > maxID) {
+            maxID = currentID;
         }
-
-        if (!foundGap) {
-            result = expectedID;  // If no gap is found, the next ID is the incremented expectedID
-        }
+        current = current->next;
     }
-
-    return result;  // Return the result from a single exit point
+    return maxID + 1; // Return the next highest ID
 }
 
 void LinkedList::add(FoodItem item) {
@@ -79,6 +70,7 @@ void LinkedList::add(FoodItem item) {
         current->next = newNode;
     }
     count++;
+    sortByName(); // Sort the list after adding the new item
 }
 
 void LinkedList::insertInPosition(){
