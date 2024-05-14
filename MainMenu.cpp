@@ -180,7 +180,7 @@ void MainMenu::addFood() {
             
         }
         else{
-            std::cout << "Descroption is too long" << std::endl;
+            std::cout << "Description is too long" << std::endl;
         }
 
         }
