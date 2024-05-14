@@ -124,7 +124,6 @@ void MainMenu::addFood() {
     std::cout << "Enter the item name: ";
     std::string name;
     std::getline(std::cin, name);
-    std::cout << name.size() << std::endl;
     // Convert the first character to uppercase
     if (!name.empty()) {
         name[0] = std::toupper(name[0]);
@@ -171,14 +170,9 @@ void MainMenu::addFood() {
                     std::cout << "This item \"" << name << " - " << description
                               << "\" has now been added to the food menu with ID " << idStream.str() << std::endl;
                 }
-                else{
-                    std::cout << std::endl << "Returning to the main menu" << std::endl;
-                }
+                else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
             }
-            catch(const std::exception& e)
-            {
-                std::cout << "Please enter the number" << std::endl;
-            }
+            catch(const std::exception& e) {std::cout << "Please enter the number" << std::endl;}
             
         }
         else{std::cout << "Descroption is too long" << std::endl;}
