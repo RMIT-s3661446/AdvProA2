@@ -14,10 +14,6 @@ MainMenu::MainMenu(LinkedList* foodList){
     this -> foodList = foodList;
     hasQuit = false;
     userChoice = 0;
-
-    /*for (int i = 0; i < NUM_DENOMS; i++){
-        this -> coins[i] = coins[i];
-    }*/
 }
 
 MainMenu::~MainMenu()
@@ -29,27 +25,18 @@ void MainMenu::menuStart()
 {
     do{
         displayMainMenu();
+        std::string userInput;
+        std::getline(std::cin, userInput);
         try
         {
-            std::string userInput;
-            std::getline(std::cin, userInput);
-            if (userInput != "\0"){
-                userChoice = std::stoi(userInput);
-                // std::cin >> userChoice;
-                handleMenuSelection(userChoice);   
-            }
             userChoice = std::stoi(userInput);
-           // std::cin >> userChoice;
-            handleMenuSelection(userChoice);
+            handleMenuSelection(userChoice);   
         }
         catch(const std::exception& e)
         {
             //std::cerr << e.what() << '\n';
             std::cout << "Please enter a number for the option!!" << std::endl << std::endl;
         }
-        
-
-
     }
     while (hasQuit != true);
     
