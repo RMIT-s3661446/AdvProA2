@@ -177,13 +177,12 @@ void MainMenu::addFood() {
             catch(const std::exception& e) {std::cout << "Please enter the number" << std::endl;}
             
         }
-<<<<<<< HEAD
+
         else{
             std::cout << "Description is too long" << std::endl;
         }
-=======
-        else{std::cout << "Descroption is too long" << std::endl;}
->>>>>>> 0bedd38e107dbce79f4e5ee69d01670f4d15cdd5
+
+
 
         }else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
 
