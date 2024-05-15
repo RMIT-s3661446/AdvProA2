@@ -26,6 +26,7 @@ void LinkedList::insertAtEnd(const FoodItem& item){
     if (head == nullptr){ //if list is empty, makes the new node the head
         head = newNode;
         head -> next = nullptr;
+        //std::cout << "Added " << head -> data.name << " at the start" << std::endl; 
     }
 
     else{
@@ -35,6 +36,7 @@ void LinkedList::insertAtEnd(const FoodItem& item){
         }
         tempNode -> next = newNode;
         newNode -> next = nullptr;
+        //std::cout << "Added " << tempNode -> data.name << " at the start" << std::endl; 
     }
     count += 1;
 
@@ -196,6 +198,7 @@ Node *LinkedList::searchByID(std::string itemID)
 
 int LinkedList::size()
 {
+    //std::cout << head -> data.name << std::endl;
     return count;
 }
 
@@ -228,6 +231,7 @@ std::vector<FoodItem> LinkedList::returnFoodVector()
         Node* tempNode = head;
         while (tempNode != nullptr){
             foodVector.push_back(tempNode ->data);
+            //std::cout << "Added " << tempNode -> data.name << "To the vector" << std::endl; 
             tempNode = tempNode -> next;
         }
     }

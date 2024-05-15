@@ -93,6 +93,7 @@ bool MainMenu::handleMenuSelection(int option) {
 }
 
 void MainMenu::displayFoodMenu() {
+    
     std::cout << "Food Menu\n";
     std::cout << "--------------------------------------------------------------------------------------------------\n";
     std::cout << std::left << std::setw(6) << "ID" << "|"
@@ -101,6 +102,7 @@ void MainMenu::displayFoodMenu() {
               << std::right << std::setw(10) << "Price" << "\n";
     std::cout << "--------------------------------------------------------------------------------------------------\n";
     foodList->sortByName();
+    
     std::vector<FoodItem> foodVector = foodList->returnFoodVector();
     for (const auto& item : foodVector) {
         std::string description = item.description.length() > 67 ? item.description.substr(0, 67) + "..." : item.description;

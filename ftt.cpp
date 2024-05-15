@@ -35,6 +35,8 @@ int main(int argc, char **argv)
     
     MainMenu* menu = new MainMenu(foodList);
     ReadWriter::loadFoodItems(foodList, "foods.dat");
+
+    //foodList -> traverse();
     //ReadWriter::loadCoinInformation(coins, "coins.dat");
     menu -> menuStart();
     //foodList.traverse();

@@ -11,20 +11,33 @@ void ReadWriter::loadFoodItems(LinkedList *list, std::string fileName)
     }
 
     while (getline(file, line)) {
-        std::istringstream iss(line);
-        std::string id, name, description;
-        double price;
-        std::getline(iss, id, '|');
+        try
+        {
+            std::istringstream iss(line);
+            std::string id, name, description;
+            std::string priceLine;
+            double price;
+            std::getline(iss, id, '|');
         //std::cout << id << ",";
-        std::getline(iss, name, '|');
+            std::getline(iss, name, '|');
         //std::cout << name << ",";
-        std::getline(iss, description, '|');
+            std::getline(iss, description, '|');
         //std::cout << description << ",";
-        iss >> price;
+            //iss >> price;
+            std::getline(iss, priceLine);
+            price = std::stod(priceLine) * 100;
         //std::cout << price << std::endl;
 
         // Assuming there is a method to create and insert a node directly
-        list -> insertAtEnd(FoodItem(id,name,description,price));
+            list -> insertAtEnd(FoodItem(id,name,description,price));
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << "invalid item" << std::endl;
+            std::cerr << e.what() << std::endl;
+        }
+        
+
     }
 
     file.close();
