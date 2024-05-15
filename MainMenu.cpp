@@ -93,6 +93,7 @@ bool MainMenu::handleMenuSelection(int option) {
 }
 
 void MainMenu::displayFoodMenu() {
+    
     std::cout << "Food Menu\n";
     std::cout << "--------------------------------------------------------------------------------------------------\n";
     std::cout << std::left << std::setw(6) << "ID" << "|"
@@ -100,7 +101,8 @@ void MainMenu::displayFoodMenu() {
               << std::setw(70) << "Description" << "|"
               << std::right << std::setw(10) << "Price" << "\n";
     std::cout << "--------------------------------------------------------------------------------------------------\n";
-    foodList->sortByName();
+    //foodList->sortByName();
+    
     std::vector<FoodItem> foodVector = foodList->returnFoodVector();
     for (const auto& item : foodVector) {
         std::string description = item.description.length() > 67 ? item.description.substr(0, 67) + "..." : item.description;
@@ -124,7 +126,6 @@ void MainMenu::addFood() {
     std::cout << "Enter the item name: ";
     std::string name;
     std::getline(std::cin, name);
-    std::cout << name.size() << std::endl;
     // Convert the first character to uppercase
     if (!name.empty()) {
         name[0] = std::toupper(name[0]);
@@ -171,14 +172,9 @@ void MainMenu::addFood() {
                     std::cout << "This item \"" << name << " - " << description
                               << "\" has now been added to the food menu with ID " << idStream.str() << std::endl;
                 }
-                else{
-                    std::cout << std::endl << "Returning to the main menu" << std::endl;
-                }
+                else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
             }
-            catch(const std::exception& e)
-            {
-                std::cout << "Please enter the number" << std::endl;
-            }
+            catch(const std::exception& e) {std::cout << "Please enter the number" << std::endl;}
             
         }
 <<<<<<< HEAD
@@ -201,7 +197,27 @@ void MainMenu::addFood() {
 void MainMenu::removeFood() {
     std::string foodID;
     std::cout << "Enter the food ID of the food to remove from the menu: ";
-    std::cin >> foodID;
+    std::getline(std::cin, foodID);
+    if (foodID != ""){
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the input buffer
+
+        Node* itemNode = foodList->searchByID(foodID);  // Utilizing searchByID to find the node
+        if (itemNode != nullptr) {
+            // Access the FoodItem data from the Node
+            FoodItem* item = &itemNode->data;
+            std::cout << "\"" << item->id << " - " << item->name << " - " << item->description
+                      << "\" is being removed from the system." << std::endl;
+
+            foodList->deleteByID(foodID);  // Utilizing deleteByID to remove the item
+        // No need to delete the FoodItem* as it is not dynamically allocated separately
+        } else {
+            std::cout << "No item found with ID " << foodID << std::endl;
+        }
+    }
+    else{std::cout << "Returning to the main menu" << std::endl;}
+    
+    /*
+    
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the input buffer
 
     Node* itemNode = foodList->searchByID(foodID);  // Utilizing searchByID to find the node
@@ -215,7 +231,7 @@ void MainMenu::removeFood() {
         // No need to delete the FoodItem* as it is not dynamically allocated separately
     } else {
         std::cout << "No item found with ID " << foodID << std::endl;
-    }
+    }*/
     
 }
 
