@@ -29,7 +29,10 @@ void ReadWriter::loadFoodItems(LinkedList *list, std::string fileName)
         //std::cout << price << std::endl;
 
         // Assuming there is a method to create and insert a node directly
-            list -> insertSorted(FoodItem(id,name,description,price));
+            if (id[0] == 'F' && id.size() == IDLEN && name.size() <= NAMELEN && description.size() <= DESCLEN){
+                list -> insertSorted(FoodItem(id,name,description,price));
+            }
+            
         }
         catch(const std::exception& e)
         {

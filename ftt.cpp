@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     //Coin coins[NUM_DENOMS];
     
     MainMenu* menu = new MainMenu(foodList);
-    ReadWriter::loadFoodItems(foodList, "foods.dat");
+    ReadWriter::loadFoodItems(foodList, argv[1]);
 
     //foodList -> traverse();
     //ReadWriter::loadCoinInformation(coins, "coins.dat");
