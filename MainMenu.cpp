@@ -101,7 +101,7 @@ void MainMenu::displayFoodMenu() {
         std::cout << std::left << std::setw(6) << item.id << "|"
                   << std::setw(10) << item.name << "|"
                   << std::setw(70) << description << "|"
-                  << std::right << std::fixed << std::setprecision(2) << std::setw(10) << item.Price / 100.0 << "\n";
+                  << std::right << std::fixed << std::setprecision(2) << std::setw(10) << item.Price << "\n";
     }
 }
 
