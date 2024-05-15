@@ -28,14 +28,11 @@ int main(int argc, char **argv)
 {
     /* validate command line arguments */
     // TODO
-    
     //std::cout << "Just a test, nothing implemented yet!" << std::endl;
     LinkedList* foodList = new LinkedList();
     //Coin coins[NUM_DENOMS];
-    
     MainMenu* menu = new MainMenu(foodList);
     ReadWriter::loadFoodItems(foodList, argv[1]);
-
     //foodList -> traverse();
     //ReadWriter::loadCoinInformation(coins, "coins.dat");
     menu -> menuStart();

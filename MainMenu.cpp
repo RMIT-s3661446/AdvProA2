@@ -33,6 +33,11 @@ void MainMenu::menuStart()
         {
             std::string userInput;
             std::getline(std::cin, userInput);
+            if (userInput != "\0"){
+                userChoice = std::stoi(userInput);
+                // std::cin >> userChoice;
+                handleMenuSelection(userChoice);   
+            }
             userChoice = std::stoi(userInput);
            // std::cin >> userChoice;
             handleMenuSelection(userChoice);
@@ -173,9 +178,6 @@ void MainMenu::purchaseMeal() {
 }
 
 void MainMenu::addFood() {
-    // Clear the buffer before taking any inputs
-    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear any leftover characters in the input buffer
-
     // Get input from user for the name
     std::cout << "Enter the item name: ";
     std::string name;
@@ -184,7 +186,6 @@ void MainMenu::addFood() {
     if (!name.empty()) {
         name[0] = std::toupper(name[0]);
     }
-    
     //If name is empty return to the main menu
     if (name.size() != 0){
         if (name.size() < NAMELEN){
@@ -268,24 +269,6 @@ void MainMenu::removeFood() {
         }
     }
     else{std::cout << "Returning to the main menu" << std::endl;}
-    
-    /*
-    
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the input buffer
-
-    Node* itemNode = foodList->searchByID(foodID);  // Utilizing searchByID to find the node
-    if (itemNode != nullptr) {
-        // Access the FoodItem data from the Node
-        FoodItem* item = &itemNode->data;
-        std::cout << "\"" << item->id << " - " << item->name << " - " << item->description
-                  << "\" is being removed from the system." << std::endl;
-
-        foodList->deleteByID(foodID);  // Utilizing deleteByID to remove the item
-        // No need to delete the FoodItem* as it is not dynamically allocated separately
-    } else {
-        std::cout << "No item found with ID " << foodID << std::endl;
-    }*/
-    
 }
 
 void MainMenu::displayBalance() {
