@@ -1,33 +1,48 @@
 #ifndef COIN_H
 #define COIN_H
 
-// Coin.h defines the coin structure for managing currency in the system. 
-#define DELIM ','  // delimiter 
+#include <vector>
+#include <map>
+#include <iostream>
 
-// enumeration representing the various types of currency available in the system. 
-enum Denomination
-{
+// Keeping the original enum structure
+enum Denomination {
     FIVE_CENTS, TEN_CENTS, TWENTY_CENTS, FIFTY_CENTS, ONE_DOLLAR, 
-    TWO_DOLLARS, FIVE_DOLLARS, TEN_DOLLARS, TWENTY_DOLLARS, FIFTY_DOLLARS
+    TWO_DOLLARS, FIVE_DOLLARS, TEN_DOLLARS, TWENTY_DOLLARS
 };
 
+// Maps enum to its value in cents
+static const std::map<Denomination, int> DenominationValues = {
+    {FIVE_CENTS, 5}, {TEN_CENTS, 10}, {TWENTY_CENTS, 20}, {FIFTY_CENTS, 50},
+    {ONE_DOLLAR, 100}, {TWO_DOLLARS, 200}, {FIVE_DOLLARS, 500},
+    {TEN_DOLLARS, 1000}, {TWENTY_DOLLARS, 2000}
+};
 
-// represents a coin type stored in the cash register perhaps. Each demonination
-// will have exactly one of these in the cash register.
-class Coin
-{
+class CoinManager {
+private:
+    std::map<Denomination, unsigned> coins;
+
 public:
-    // the denomination type
-    enum Denomination denom;
     
-    // the count of how many of these are in the cash register
-    unsigned count;
 
-    //Converts coin to int value of cents
-    static int coinToCents(Denomination coinDenom);
+    static CoinManager& getInstance() {
+        static CoinManager instance;
+        return instance;
+    }
 
-    //converts cents to coin
-    static Denomination centsToCoin(int cents);
+    CoinManager(const CoinManager&) = delete;
+    void operator=(const CoinManager&) = delete;
+
+    void addCoin(Denomination denom, unsigned num);
+    bool subtractCoin(Denomination denom, unsigned num);
+    bool canProvideChange(double amount);
+    std::vector<std::pair<Denomination, unsigned>> getChange(double amount);
+    bool isValidDenomination(int cent);
+    void refund(double totalReceived);
+    bool provideChange(double change);
+
+private:
+    CoinManager() {}
 };
 
 #endif // COIN_H

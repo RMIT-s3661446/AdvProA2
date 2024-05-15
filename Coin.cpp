@@ -1,93 +1,78 @@
 #include "Coin.h"
- 
-
- int Coin::coinToCents(Denomination coinDenom){
-    int cents = 0;
+#include <cmath>
 
 
-    /*if (coinDenom == FIVE_CENTS){
-        cents = 5;
+
+void CoinManager::addCoin(Denomination denom, unsigned num) {
+    coins[denom] += num;
+}
+
+bool CoinManager::subtractCoin(Denomination denom, unsigned num) {
+    if (coins[denom] < num) return false;
+    coins[denom] -= num;
+    return true;
+}
+
+bool CoinManager::canProvideChange(double amount) {
+    int cents = amount * 100; //static_cast<int>(round(amount * 100));
+    auto backup = coins;
+    for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); ++it) {
+        while (cents >= it->second && coins[it->first] > 0) {
+            cents -= it->second;
+            coins[it->first]--;
+        }
     }
-    else if (coinDenom == TEN_CENTS){
-        cents = 10;
+    coins = backup;
+    //std::cout<< "DEBUG: " << cents << std::endl;
+    return cents == 0;
+}
+
+std::vector<std::pair<Denomination, unsigned>> CoinManager::getChange(double amount) {
+    std::vector<std::pair<Denomination, unsigned>> change;
+    int cents = static_cast<int>(round(amount * 100));
+    for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++) {
+        unsigned count = 0;
+        while (cents >= it->second && coins[it->first] > 0) {
+            cents -= it->second;
+            coins[it->first]--;
+            count++;
+        }
+        if (count > 0) {
+            change.push_back({it->first, count});
+        }
     }
-    else if (coinDenom == TWENTY_CENTS){
-        cents = 20;
+    if (cents > 0) {
+        // Unable to provide exact change, rollback
+        for (auto& ch : change) {
+            coins[ch.first] += ch.second;
+        }
+        change.clear();
     }
-    else if (coinDenom == FIFTY_CENTS){
-        cents = 50;
+    return change;
+}
+
+bool CoinManager::isValidDenomination(int cent) {
+    for (const auto& pair : DenominationValues) {
+        if (pair.second == cent) return true;
     }
-    else if (coinDenom == ONE_DOLLAR){
-        cents = 100;
+    return false;
+}
+
+void CoinManager::refund(double totalReceived) {
+    std::cout << "Refunding $" << totalReceived << std::endl;
+    // Here you would typically add logic to return coins
+}
+
+bool CoinManager::provideChange(double change) {
+    auto changes = getChange(change);
+    if (getChange(change).empty()) {
+        return false;
     }
-    else if (coinDenom == TWO_DOLLARS){
-        cents == 200;
+    std::cout << "Your change is: ";
+    for (const auto& ch : changes) {
+        int denomValue = DenominationValues.at(ch.first);
+        std::cout << denomValue / 100 << " dollar(s) " << denomValue % 100 << " cent(s) ";
     }
-    else if (coinDenom == FIVE_DOLLARS){
-        cents == 500;
-    }
-    else if (coinDenom == TEN_DOLLARS){
-        cents == 1000;
-    }
-    else if (coinDenom == TWENTY_DOLLARS){
-        cents == 2000;
-    }*/
-
-
-    return cents;
- }
- Denomination Coin::centsToCoin(int cents)
- {
-    Denomination coinDenom;
-    switch (cents){
-        case 5:
-        coinDenom = FIVE_CENTS;
-        break;
-
-        case 10:
-        coinDenom = TEN_CENTS;
-        break;
-
-        case 20:
-        coinDenom = TWENTY_CENTS;
-        break;
-
-        case 50:
-        coinDenom = FIFTY_CENTS;
-        break;
-
-        case 100:
-        coinDenom = ONE_DOLLAR;
-        break;
-
-        case 200:
-        coinDenom = TWO_DOLLARS;
-        break;
-
-        case 500:
-        coinDenom = FIVE_DOLLARS;
-        break;
-
-        case 1000:
-        coinDenom = TEN_DOLLARS;
-        break;
-
-        case 2000:
-        coinDenom = TWENTY_DOLLARS;
-        break;
-
-        case 5000:
-        coinDenom = FIFTY_DOLLARS;
-        break;
-
-        
-        default:
-        coinDenom = FIVE_CENTS;
-        break;
-
-    }
-
-    return coinDenom;
-    
- }
- // implement functions for managing coins; this may depend on your design.
+    std::cout << std::endl;
+    return true;
+}

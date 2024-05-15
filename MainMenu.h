@@ -11,6 +11,7 @@
 #include <vector>
 #include <iomanip>
 #include <limits>
+#include <algorithm> 
 
 
 class MainMenu {
@@ -33,7 +34,7 @@ class MainMenu {
     bool hasQuit;
     int userChoice;
     LinkedList* foodList;
-    Coin coins[];
+    //Coin coins[];
 
 
 

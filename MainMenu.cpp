@@ -115,7 +115,61 @@ void MainMenu::displayFoodMenu() {
 
 void MainMenu::purchaseMeal() {
     // Placeholder function for meal purchase logic
-    std::cout << "Purchase Meal - To be implemented\n";
+    std::string foodID;
+    std::cout << "Please enter the ID of the food you wish to purchase:\n";
+    std::cin >> foodID;
+
+    std::vector<FoodItem> foodMenu = foodList->returnFoodVector();
+
+    // Find the food item by ID
+    auto it = std::find_if(foodMenu.begin(), foodMenu.end(), [&foodID](const FoodItem& f) { return f.id == foodID; });
+    if (it == foodMenu.end()) {
+        std::cout << "Food item not found.\n";
+        return;
+    }
+
+    // Display selected food details
+    std::cout << "You have selected \"" << it->name << " - " << it->description << "\". This will cost you $ " << it->Price << ".\n";
+    std::cout << "Please hand over the money - type in the value of each note/coin in cents.\n";
+    std::cout << "Please enter ctrl-D or enter on a new line to cancel this purchase.\n";
+
+    // Handle payment
+    double totalReceived = 0;
+    double amountDue = it->Price;
+    int inputCent;
+    bool validInput = true;
+
+
+    while (totalReceived < amountDue) {
+        std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
+        if (!(std::cin >> inputCent)) {
+            std::cin.clear(); // Clear error state
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore incorrect input
+            std::cout << "Transaction cancelled.\n";
+            return;
+        }
+
+        validInput = CoinManager::getInstance().isValidDenomination(inputCent);
+        if (!validInput) {
+            std::cout << "Error: invalid denomination encountered.\n";
+        } else {
+            // Add the received amount
+            totalReceived += inputCent / 100.0;
+            CoinManager::getInstance().addCoin(static_cast<Denomination>(inputCent / 100), 1);
+        }
+    }
+
+    // Calculate change if overpaid
+    double change = totalReceived - amountDue;
+    if (change > 0) {
+        if (!CoinManager::getInstance().provideChange(change)) {
+            std::cout << "Unable to provide correct change. Transaction cancelled.\n";
+            CoinManager::getInstance().refund(totalReceived);
+            return;
+        }
+    }
+
+    std::cout << "Thank you for your purchase!\n";
 }
 
 void MainMenu::addFood() {
@@ -237,11 +291,6 @@ void MainMenu::removeFood() {
 void MainMenu::displayBalance() {
     // Placeholder function for displaying balance
     std::cout << "Display Balance - To be implemented\n";
-
-    for (int i = 0; i > NUM_DENOMS; i++){
-        std::cout << "Line " << i + 1 << ". Value: " << Coin::coinToCents(coins[i].denom)
-        << ". Count: " << coins[i].count << std::endl;
-    }
 }
 
 /* potential displayBalance ?

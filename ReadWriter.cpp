@@ -62,7 +62,7 @@ void ReadWriter::saveFoodItems(const LinkedList &list, const std::string &filena
 
 }
 
-void ReadWriter::loadCoinInformation(Coin coins[NUM_DENOMS], std::string fileName)
+/*void ReadWriter::loadCoinInformation(Coin coins[NUM_DENOMS], std::string fileName)
 {
     std::ifstream file(fileName);
     std::string line;
@@ -133,4 +133,4 @@ void ReadWriter::loadCoinInformation(Coin coins[NUM_DENOMS], std::string fileNam
 
         file.close();
     }
-}
+}*/
