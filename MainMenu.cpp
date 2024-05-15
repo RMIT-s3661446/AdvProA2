@@ -39,8 +39,7 @@ void MainMenu::menuStart()
                 handleMenuSelection(userChoice);   
             }
             userChoice = std::stoi(userInput);
-           // std::cin >> userChoice;
-            handleMenuSelection(userChoice);
+
         }
         catch(const std::exception& e)
         {
