@@ -62,7 +62,7 @@ void ReadWriter::saveFoodItems(const LinkedList &list, const std::string &filena
 
 }
 
-/*void ReadWriter::loadCoins(std::string fileName)
+void ReadWriter::loadCoins(std::string fileName)
 {
     std::ifstream file(fileName);
     std::string line;
@@ -77,14 +77,19 @@ void ReadWriter::saveFoodItems(const LinkedList &list, const std::string &filena
         {
             std::istringstream iss(line);
             std::string denomString, quantString;
-            int denom, quantity;
+            //int denom, quantity;
             std::getline(iss, denomString, ',');
             std::getline(iss, quantString);
 
             try
             {
-                //CoinManager::getInstance().addCoin(DenominationValues.find(denom), );
+                for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++) {
+                    if (std::stoi(denomString) == it -> second){
+                        CoinManager::getInstance().addCoin(it->first, std::stoi(denomString));
+                    }
+                }
             }
+            
             catch(const std::exception& e)
             {
                 std::cerr << e.what() << '\n';
@@ -107,4 +112,4 @@ void ReadWriter::saveFoodItems(const LinkedList &list, const std::string &filena
     }
 
     file.close();
-}*/
+}
