@@ -34,7 +34,6 @@ void MainMenu::menuStart()
         }
         catch(const std::exception& e)
         {
-            //std::cerr << e.what() << '\n';
             std::cout << "Please enter a number for the option!!" << std::endl << std::endl;
         }
     }
@@ -59,6 +58,9 @@ void MainMenu::displayMainMenu() {
     std::cout << "Select your choice: " << std::endl;
 }
 
+
+
+
 bool MainMenu::handleMenuSelection(int option) {
     if (option == 1) {
         displayFoodMenu();
@@ -68,7 +70,6 @@ bool MainMenu::handleMenuSelection(int option) {
         std::cout << "Saving and exiting.\n";
         // Exits the main loop
         hasQuit = true;
-        //return false;
     } else if (option == 4) {
         addFood();
     } else if (option == 5) {
@@ -84,6 +85,9 @@ bool MainMenu::handleMenuSelection(int option) {
     return true;
 }
 
+
+
+
 void MainMenu::displayFoodMenu() {
     
     std::cout << "Food Menu\n";
@@ -93,8 +97,6 @@ void MainMenu::displayFoodMenu() {
               << std::setw(70) << "Description" << "|"
               << std::right << std::setw(10) << "Price" << "\n";
     std::cout << "--------------------------------------------------------------------------------------------------\n";
-    //foodList->sortByName();
-    
     std::vector<FoodItem> foodVector = foodList->returnFoodVector();
     for (const auto& item : foodVector) {
         std::string description = item.description.length() > 67 ? item.description.substr(0, 67) + "..." : item.description;
@@ -105,8 +107,8 @@ void MainMenu::displayFoodMenu() {
     }
 }
 
+
 void MainMenu::purchaseMeal() {
-    // Placeholder function for meal purchase logic
     std::string foodID;
     std::cout << "Please enter the ID of the food you wish to purchase:\n";
     std::cin >> foodID;
@@ -164,6 +166,9 @@ void MainMenu::purchaseMeal() {
     std::cout << "Thank you for your purchase!\n";
 }
 
+
+
+
 void MainMenu::addFood() {
     // Get input from user for the name
     std::cout << "Enter the item name: ";
@@ -194,8 +199,6 @@ void MainMenu::addFood() {
                 if (userInput != ""){
                     double price;
                     price = std::stod(userInput);
-                    //std::cin >> price;
-                    //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer again after reading a numeric input
 
                     // Handle the ID formatting and price conversion
                     int priceInCents = static_cast<int>(price * 100);  // Convert dollars to cents
@@ -209,7 +212,6 @@ void MainMenu::addFood() {
                     FoodItem newFood(idStream.str(), name, description, priceInCents);
                     foodList->insertSorted(newFood); // Used insertSorted to keep the list in order
     
-
                     // Confirmation message
                     std::cout << "This item \"" << name << " - " << description
                               << "\" has now been added to the food menu with ID " << idStream.str() << std::endl;
@@ -219,20 +221,18 @@ void MainMenu::addFood() {
             catch(const std::exception& e) {std::cout << "Please enter the number" << std::endl;}
             
         }
-
         else{
             std::cout << "Description is too long" << std::endl;
         }
-
-
-
         }else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
-
     }
     else {std::cout << "Name is too long" << std::endl;}
     }
     else{std::cout << std::endl << "Returning to the main menu" << std::endl;}
 }
+
+
+
 
 
 void MainMenu::removeFood() {
@@ -258,41 +258,14 @@ void MainMenu::removeFood() {
     else{std::cout << "Returning to the main menu" << std::endl;}
 }
 
+
+
 void MainMenu::displayBalance() {
     // Placeholder function for displaying balance
     std::cout << "Display Balance - To be implemented\n";
 }
 
-/* potential displayBalance ?
-    std::vector<Coin> coins;
 
-    void displayBalance() {
-        // Sort coins by denomination
-        std::sort(coins.begin(), coins.end(), [](const Coin& a, const Coin& b) {
-            return a.denom < b.denom;
-        });
-
-        // Header
-        std::cout << "Balance Summary\n";
-        std::cout << "-------------\n";
-        std::cout << "Denom | Quantity | Value\n";
-        std::cout << "---------------------------\n";
-
-        double totalValue = 0.0;
-        // Display each denomination's details
-        for (const auto& coin : coins) {
-            double value = coin.denom * coin.count / 100.0; // Convert cents to dollars
-            totalValue += value;
-
-            std::cout << std::right << std::setw(5) << coin.denom << " |"
-                      << std::right << std::setw(9) << coin.count << " |$"
-                      << std::right << std::setw(6) << std::fixed << std::setprecision(2) << value << std::endl;
-        }
-
-        std::cout << "---------------------------\n";
-        std::cout << "$ " << std::fixed << std::setprecision(2) << totalValue << std::endl;
-    }
-};*/
 
 void MainMenu::abortProgram() {
     std::cout << "Aborting program...\n";

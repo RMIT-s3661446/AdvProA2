@@ -5,11 +5,10 @@ LinkedList::LinkedList() {
    head = nullptr;
    count = 0;
 
-   // TODO
+ 
 }
 
 LinkedList::~LinkedList() {
-    // TODO
 }
 
 void LinkedList::insertAtBeginning(const FoodItem& item){
@@ -18,7 +17,6 @@ void LinkedList::insertAtBeginning(const FoodItem& item){
     head =  newNode; //designeates new node as the head
     head -> next = nullptr;
     count += 1;
-    //std::cout << "node added" << std::endl;
 }
 
 void LinkedList::insertAtEnd(const FoodItem& item){
@@ -26,7 +24,6 @@ void LinkedList::insertAtEnd(const FoodItem& item){
     if (head == nullptr){ //if list is empty, makes the new node the head
         head = newNode;
         head -> next = nullptr;
-        //std::cout << "Added " << head -> data.name << " at the start" << std::endl; 
     }
 
     else{
@@ -132,16 +129,6 @@ void LinkedList::deleteFromEnd(){
     }
 }
 
-/*void LinkedList::deleteNode(Node *node)
-{
-    if (head != nullptr){
-        Node* tempNode = head;
-        Node* deletedNode;
-        while(tempNode != nullptr){
-
-        }
-    }
-}*/
 
 void LinkedList::deleteByID(std::string ID)
 {
@@ -231,7 +218,6 @@ std::vector<FoodItem> LinkedList::returnFoodVector()
         Node* tempNode = head;
         while (tempNode != nullptr){
             foodVector.push_back(tempNode ->data);
-            //std::cout << "Added " << tempNode -> data.name << "To the vector" << std::endl; 
             tempNode = tempNode -> next;
         }
     }

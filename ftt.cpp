@@ -20,24 +20,18 @@
 //I am testing too// Whetever
 //Patrick Leonello -3 lwdoakdoadoaod
 
-//void loadFoodItems(LinkedList* list, std::string fileName);
+
 
 
 
 int main(int argc, char **argv)
 {
-    /* validate command line arguments */
-    // TODO
-    //std::cout << "Just a test, nothing implemented yet!" << std::endl;
+
     LinkedList* foodList = new LinkedList();
-    //Coin coins[NUM_DENOMS];
     MainMenu* menu = new MainMenu(foodList);
     ReadWriter::loadFoodItems(foodList, argv[1]);
     ReadWriter::loadCoins("coins.dat");
-    //foodList -> traverse();
-    //ReadWriter::loadCoinInformation(coins, "coins.dat");
     menu -> menuStart();
-    //foodList.traverse();
     foodList -> clear();
     delete menu;
     delete foodList;
