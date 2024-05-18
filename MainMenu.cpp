@@ -201,7 +201,7 @@ void MainMenu::addFood() {
                     price = std::stod(userInput);
 
                     // Handle the ID formatting and price conversion
-                    int priceInCents = static_cast<int>(price * 100);  // Convert dollars to cents
+                    int priceInCents = static_cast<int>(price);  // Convert dollars to cents
                     int nextID = foodList->getNextID();
                     std::stringstream idStream;
                     idStream << 'F' << std::setw(4) << std::setfill('0') << nextID;
