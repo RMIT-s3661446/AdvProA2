@@ -41,6 +41,8 @@ public:
     void refund(double totalReceived);
     bool provideChange(double change);
 
+    int getBalance(Denomination denom);
+
 private:
     CoinManager() {}
 };

@@ -262,7 +262,20 @@ void MainMenu::removeFood() {
 
 void MainMenu::displayBalance() {
     // Placeholder function for displaying balance
-    std::cout << "Display Balance - To be implemented\n";
+    //std::cout << "Display Balance - To be implemented\n";
+    int total = 0;
+    std::cout << std::setw(10) << std::left <<  "Denom"  << " | " << std::setw(10) << std::left << "Quantity" << " | " << std::setw(10) << std::left << "Value" << std::endl;
+    std::cout << "-----------------------------------" << std::endl;
+
+    for(auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++){
+        int denomValue = it -> second;
+        int amount = CoinManager::getInstance().getBalance(it -> first);
+        int subtotal = denomValue * amount;
+        std::cout << std::setw(10) << std::left <<  denomValue  << " | " << std::setw(10) << std::left << amount << " | " << "$" << std::setw(10) << std::fixed << std::left << std::setprecision(2) << ((double) subtotal)/100 << std::endl;
+        total += subtotal;
+    }
+    std::cout << "-----------------------------------" << std::endl;
+    std::cout << std::setw(27) << std::right << "$" << std::right << std::fixed << std::setprecision(2) << ((double) total) /100 << std::endl;
 }
 
 

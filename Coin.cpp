@@ -76,3 +76,8 @@ bool CoinManager::provideChange(double change) {
     std::cout << std::endl;
     return true;
 }
+
+
+int CoinManager::getBalance(Denomination denom){
+    return (int) coins[denom];
+}

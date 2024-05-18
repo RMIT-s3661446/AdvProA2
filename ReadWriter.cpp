@@ -85,7 +85,7 @@ void ReadWriter::loadCoins(std::string fileName)
             {
                 for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++) {
                     if (std::stoi(denomString) == it -> second){
-                        CoinManager::getInstance().addCoin(it->first, std::stoi(denomString));
+                        CoinManager::getInstance().addCoin(it->first, std::stoi(quantString));
                     }
                 }
             }
