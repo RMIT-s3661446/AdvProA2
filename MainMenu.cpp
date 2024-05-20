@@ -131,11 +131,15 @@ void MainMenu::purchaseMeal() {
     double totalReceived = 0;
     double amountDue = it->Price;
     int inputCent;
+    std::string userInput;
     bool validInput = true;
 
 
     while (totalReceived < amountDue) {
         std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
+        std::getline(std::cin, userInput);
+        
+
         if (!(std::cin >> inputCent)) {
             std::cin.clear(); // Clear error state
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore incorrect input
@@ -267,13 +271,17 @@ void MainMenu::displayBalance() {
     std::cout << std::setw(10) << std::left <<  "Denom"  << " | " << std::setw(10) << std::left << "Quantity" << " | " << std::setw(10) << std::left << "Value" << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 
-    for(auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++){
+    auto it = DenominationValues.rend();
+    while (it != DenominationValues.rbegin()){
+        it--;
         int denomValue = it -> second;
         int amount = CoinManager::getInstance().getBalance(it -> first);
         int subtotal = denomValue * amount;
         std::cout << std::setw(10) << std::left <<  denomValue  << " | " << std::setw(10) << std::left << amount << " | " << "$" << std::setw(10) << std::fixed << std::left << std::setprecision(2) << ((double) subtotal)/100 << std::endl;
         total += subtotal;
     }
+
+
     std::cout << "-----------------------------------" << std::endl;
     std::cout << std::setw(27) << std::right << "$" << std::right << std::fixed << std::setprecision(2) << ((double) total) /100 << std::endl;
 }
