@@ -153,7 +153,8 @@ void MainMenu::purchaseMeal() {
         } else {
             // Add the received amount
             totalReceived += inputCent / 100.0;
-            CoinManager::getInstance().addCoin(static_cast<Denomination>(inputCent / 100), 1);
+            auto it = CoinValues.find(inputCent);
+            CoinManager::getInstance().addCoin(it -> second, 1);
         }
     }
 

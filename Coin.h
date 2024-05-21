@@ -24,6 +24,12 @@ static const std::map<Denomination, int> DenominationValues = {
     {TEN_DOLLARS, 1000}, {TWENTY_DOLLARS, 2000}, {FIFTY_DOLLARS, 5000}
 };
 
+static const std::map<int, Denomination> CoinValues = {
+    {5, FIVE_CENTS}, {10, TEN_CENTS}, {20, TWENTY_CENTS}, {50, FIFTY_CENTS},
+    {100, ONE_DOLLAR}, {200, TWO_DOLLARS}, {500, FIVE_DOLLARS},
+    {1000, TEN_DOLLARS}, {2000, TWENTY_DOLLARS}, {5000, FIFTY_DOLLARS}
+};
+
 class CoinManager {
 private:
     std::map<Denomination, unsigned> coins;
