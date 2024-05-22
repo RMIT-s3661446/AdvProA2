@@ -13,7 +13,7 @@
 #include <limits>
 #include <algorithm> 
 
-
+// MainMenu class declaration
 class MainMenu {
     public:
 
@@ -31,9 +31,13 @@ class MainMenu {
     void displayBalance();
     void abortProgram();
 
+    // Flag to indicate if the user has quit
     bool hasQuit;
+    // Variable to store user's menu choice
     int userChoice;
+    // Pointer to the food list
     LinkedList* foodList;
+    // File names
     std::string foodFile;
     std::string coinFile;
     //Coin coins[];

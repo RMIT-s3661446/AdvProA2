@@ -56,7 +56,7 @@ void ReadWriter::saveFoodItems(LinkedList *list, const std::string &filename)
     }
     else{
 
-    // Assuming `toString` method that returns all nodes' data as string formatted as required
+    
     //file << list.toString();
 
     Node* currNode = list -> getHead();
