@@ -154,14 +154,14 @@ void MainMenu::purchaseMeal()
     std::cout << "Please enter the ID of the food you wish to purchase:\n";
     // std::cin >> foodID;
     std::getline(std::cin, foodID);
-
+  // Get the list of food items
     std::vector<FoodItem> foodMenu = foodList->returnFoodVector();
-
+    // Search for the food item by ID
     Node *itemNode = foodList->searchByID(foodID);
-
+   // Check if the item was found
     if (itemNode != nullptr)
     {
-
+        // Get the food item
         FoodItem *item = &(itemNode->data);
         // Display selected food details
         std::cout << "You have selected \"" << item->name << " - " << item->description << "\". This will cost you $ " << item->Price << ".\n";
@@ -175,7 +175,7 @@ void MainMenu::purchaseMeal()
         std::string userInput;
         bool validInput = true;
         bool purchaseCancelled = false;
-
+        // Loop to process payment until the amount due is covered or purchase is cancelled
         while (totalReceived < amountDue && !purchaseCancelled)
         {
             try
@@ -184,11 +184,14 @@ void MainMenu::purchaseMeal()
                 std::getline(std::cin, userInput);
                 if (userInput == "")
                 {
+                     // Set flag if the user cancels the purchase
                     purchaseCancelled = true;
                 }
                 else
                 {
+                     // Convert user input to integer
                     inputCent = std::stoi(userInput);
+                     // Check if the input is a valid denomination
                     validInput = CoinManager::getInstance().isValidDenomination(inputCent);
                     if (!validInput)
                     {
@@ -196,8 +199,9 @@ void MainMenu::purchaseMeal()
                     }
                     else
                     {
-                        // Add the received amount
+                       // Add the received amount to totalReceived
                         totalReceived += inputCent / 100.0;
+                        // Find the coin value and add it to CoinManager
                         auto it = CoinValues.find(inputCent);
                         CoinManager::getInstance().addCoin(it->second, 1);
                     }
@@ -208,20 +212,23 @@ void MainMenu::purchaseMeal()
                 // std::cerr << e.what() << '\n';
             }
         }
-
+        // Check if purchase was not cancelled
         if (!purchaseCancelled)
         {
+             // Calculate change if overpaid
             double change = totalReceived - amountDue;
-            // Calculate change if overpaid
             if (change > 0)
             {
+                // Try to provide change
                 if (!CoinManager::getInstance().provideChange(change))
                 {
                     std::cout << "Unable to provide correct change. Transaction cancelled.\n";
+                    // Refund the total received amount
                     CoinManager::getInstance().refund(totalReceived);
                 }
                 else
                 {
+                    // Deduct one unit from the item's stock
                     item->on_hand = item->on_hand - 1;
                     std::cout << "Thank you for your purchase!\n";
                 }
@@ -229,7 +236,9 @@ void MainMenu::purchaseMeal()
         }
         else
         {
+            // Handle purchase cancellation
             std::cout << "Purchase cancelled" << std::endl;
+            // Refund the total received amount
             CoinManager::getInstance().refund(totalReceived);
         }
 
@@ -237,6 +246,7 @@ void MainMenu::purchaseMeal()
     }
     else
     {
+        // Handle case where item is not found
         std::cout << "No item found" << std::endl;
     }
 }
@@ -345,7 +355,9 @@ void MainMenu::removeFood()
             std::cout << "\"" << item->id << " - " << item->name << " - " << item->description
                       << "\" is being removed from the system." << std::endl;
 
-            foodList->deleteByID(foodID); // Utilizing deleteByID to remove the item
+              // Utilizing deleteByID to remove the item
+            foodList->deleteByID(foodID);
+            
             // No need to delete the FoodItem* as it is not dynamically allocated separately
         }
         else
@@ -366,19 +378,27 @@ void MainMenu::displayBalance()
     int total = 0;
     std::cout << std::setw(10) << std::left << "Denom" << " | " << std::setw(10) << std::left << "Quantity" << " | " << std::setw(10) << std::left << "Value" << std::endl;
     std::cout << "-----------------------------------" << std::endl;
-
+    // Get a reverse iterator to the end of DenominationValues
     auto it = DenominationValues.rend();
+    // Iterate through DenominationValues in reverse order
     while (it != DenominationValues.rbegin())
     {
+         // Move iterator to the previous element
         it--;
+        // Get the denomination value
         int denomValue = it->second;
+         // Get the amount of the current denomination from CoinManager
         int amount = CoinManager::getInstance().getBalance(it->first);
+         // Calculate the subtotal for the current denomination
         int subtotal = denomValue * amount;
+        // Print the denomination, quantity, and value
         std::cout << std::setw(10) << std::left << denomValue << " | " << std::setw(10) << std::left << amount << " | " << "$" << std::setw(10) << std::fixed << std::left << std::setprecision(2) << ((double)subtotal) / 100 << std::endl;
+               // Add the subtotal to the total
         total += subtotal;
     }
 
     std::cout << "-----------------------------------" << std::endl;
+        // Print the total balance
     std::cout << std::setw(27) << std::right << "$" << std::right << std::fixed << std::setprecision(2) << ((double)total) / 100 << std::endl;
 }
 
