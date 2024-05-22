@@ -2,45 +2,56 @@
 #include "LinkedList.h"
 #include "ReadWriter.h"
 #include <cctype>
-
+// MainMenu default constructor
 MainMenu::MainMenu()
 {
+    // Initialise hasQuit to false, userChoice to 0
     hasQuit = false;
     userChoice = 0;
 }
-
+// MainMenu constructor with parameters for foodFile and coinFile
 MainMenu::MainMenu(std::string foodFile, std::string coinFile)
 {
+    // Assign foodFile and coinFile parameters to class members
     this->foodFile = foodFile;
     this->coinFile = coinFile;
+    // Initialise foodList with a new LinkedList
     foodList = new LinkedList();
+    // Load food items from foodFile into foodList
     ReadWriter::loadFoodItems(foodList, foodFile);
+    // Load coins from coinFile
     ReadWriter::loadCoins(coinFile);
     hasQuit = false;
     userChoice = 0;
 }
-
+// MainMenu destructor
 MainMenu::~MainMenu()
 {
     foodList->clear();
     delete foodList;
+    // Set foodList pointer to nullptr
     foodList = nullptr;
 }
-
+// Start the main menu loop
 void MainMenu::menuStart()
 {
     do
     {
+        // Display the main menu
         displayMainMenu();
+        // Get user input
         std::string userInput;
         std::getline(std::cin, userInput);
         try
         {
+            // Convert user input to integer
             userChoice = std::stoi(userInput);
+            // Handle the menu selection
             handleMenuSelection(userChoice);
         }
         catch (const std::exception &e)
         {
+            // Display error message for invalid input
             std::cout << "Please enter a number for the option!!" << std::endl
                       << std::endl;
         }
@@ -48,7 +59,7 @@ void MainMenu::menuStart()
 }
 
 //******************************
-
+// Display the main menu options
 void MainMenu::displayMainMenu()
 {
     std::cout << "Main Menu:\n";
@@ -62,15 +73,17 @@ void MainMenu::displayMainMenu()
     std::cout << "   7. Abort Program\n";
     std::cout << "Select your choice: " << std::endl;
 }
-
+// Handle menu selection based on user input
 bool MainMenu::handleMenuSelection(int option)
 {
     if (option == 1)
-    {
+    {      
+         // Display the food menu
         displayFoodMenu();
     }
     else if (option == 2)
     {
+         // Handle meal purchase
         purchaseMeal();
     }
     else if (option == 3)
@@ -78,33 +91,39 @@ bool MainMenu::handleMenuSelection(int option)
         std::cout << "Saving and exiting.\n";
         // Exits the main loop
         hasQuit = true;
+        // Save food items and coins to files
         ReadWriter::saveFoodItems(foodList, foodFile);
         ReadWriter::saveCoins(coinFile);
     }
     else if (option == 4)
     {
+         // Add new food item
         addFood();
     }
     else if (option == 5)
     {
+         // Remove a food item
         removeFood();
     }
     else if (option == 6)
     {
+       // Display current balance
         displayBalance();
     }
     else if (option == 7)
     {
+          // Abort the program
         abortProgram();
     }
     else
     {
+         // Display invalid selection message
         std::cout << "Invalid selection. Please try again.\n";
     }
     // Keeps the loop running
     return true;
 }
-
+// Display the food menu
 void MainMenu::displayFoodMenu()
 {
 
@@ -115,10 +134,13 @@ void MainMenu::displayFoodMenu()
               << std::setw(70) << "Description" << "|"
               << std::right << std::setw(10) << "Price" << "\n";
     std::cout << "--------------------------------------------------------------------------------------------------\n";
+ // Retrieve food items from the list
     std::vector<FoodItem> foodVector = foodList->returnFoodVector();
     for (const auto &item : foodVector)
     {
+        // Format the description to fit within 70 characters
         std::string description = item.description.length() > 67 ? item.description.substr(0, 67) + "..." : item.description;
+      // Display food item details
         std::cout << std::left << std::setw(6) << item.id << "|"
                   << std::setw(10) << item.name << "|"
                   << std::setw(70) << description << "|"
