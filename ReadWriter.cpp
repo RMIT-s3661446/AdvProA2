@@ -7,8 +7,8 @@ void ReadWriter::loadFoodItems(LinkedList *list, std::string fileName)
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << fileName << std::endl;
-        return;
     }
+    else{
 
     while (getline(file, line)) {
         try
@@ -44,6 +44,7 @@ void ReadWriter::loadFoodItems(LinkedList *list, std::string fileName)
     }
 
     file.close();
+    }
 }
 
 void ReadWriter::saveFoodItems(LinkedList *list, const std::string &filename)
@@ -52,8 +53,8 @@ void ReadWriter::saveFoodItems(LinkedList *list, const std::string &filename)
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file for writing: " << filename << std::endl;
-        return;
     }
+    else{
 
     // Assuming `toString` method that returns all nodes' data as string formatted as required
     //file << list.toString();
@@ -64,7 +65,7 @@ void ReadWriter::saveFoodItems(LinkedList *list, const std::string &filename)
         file << currItem.id + "|" + currItem.name + "|" + currItem.description + "|" << currItem.Price << std::endl;
         currNode = currNode -> next;
     }
-    
+    }
 
 
     file.close();
@@ -76,8 +77,11 @@ void ReadWriter::saveCoins(const std::string &filename){
     
     std::ofstream file(filename, std::ofstream::out | std::ofstream::trunc);
 
+    if (!file.is_open()){
+
     for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++){
         file << it -> second << "," << CoinManager::getInstance().getBalance(it -> first) << std::endl;
+    }
     }
 }
 
@@ -88,31 +92,31 @@ void ReadWriter::loadCoins(std::string fileName)
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << fileName << std::endl;
-        return;
     }
+    else{
 
     while (getline(file, line)) {
         try
-        {
-            std::istringstream iss(line);
-            std::string denomString, quantString;
-            //int denom, quantity;
-            std::getline(iss, denomString, ',');
-            std::getline(iss, quantString);
-
-            try
             {
-                for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++) {
-                    if (std::stoi(denomString) == it -> second){
-                        CoinManager::getInstance().addCoin(it->first, std::stoi(quantString));
+                std::istringstream iss(line);
+                std::string denomString, quantString;
+            //int denom, quantity;
+                std::getline(iss, denomString, ',');
+                std::getline(iss, quantString);
+
+                try
+                {
+                    for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++) {
+                        if (std::stoi(denomString) == it -> second){
+                            CoinManager::getInstance().addCoin(it->first, std::stoi(quantString));
+                        }
                     }
                 }
-            }
             
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << '\n';
-            }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
             
 
 
@@ -120,15 +124,16 @@ void ReadWriter::loadCoins(std::string fileName)
 
         // Assuming there is a method to create and insert a node directly
             
-        }
-        catch(const std::exception& e)
-        {
+            }
+            catch(const std::exception& e)
+            {
             //std::cerr << "invalid item" << std::endl;
             //std::cerr << e.what() << std::endl;
-        }
+            }
         
 
-    }
+        }
 
-    file.close();
+        file.close();
+    }
 }

@@ -146,11 +146,10 @@ void MainMenu::purchaseMeal() {
 
 
         while (totalReceived < amountDue) {
-            std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
-            std::getline(std::cin, userInput);
-
             try
             {
+                std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
+                std::getline(std::cin, userInput);
                 inputCent = std::stoi(userInput);
                 validInput = CoinManager::getInstance().isValidDenomination(inputCent);
                 if (!validInput) {
