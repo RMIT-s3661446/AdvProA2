@@ -8,7 +8,7 @@ Administrator-Only Menu:
    6. Display Balance
    7. Abort Program
 Select your choice: 
-Enter the item name:Enter the item description:Enter the price for this item (in dollars and cents, e.g., 5.25): 1.25 This item "Apple - Yum Fruit" has now been added to the food menu with ID F0008
+Enter the item name: Enter the item description: Enter the price for this item (in dollars and cents, e.g., 5.25): This item "Apple - Yum Fruit" has now been added to the food menu with ID F0008
 Main Menu:
    1. Display Meal Options
    2. Purchase Meal
