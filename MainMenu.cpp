@@ -113,29 +113,37 @@ void MainMenu::purchaseMeal() {
     std::cout << "Please enter the ID of the food you wish to purchase:\n";
     std::cin >> foodID;
 
+
+
     std::vector<FoodItem> foodMenu = foodList->returnFoodVector();
 
     // Find the food item by ID
-    auto it = std::find_if(foodMenu.begin(), foodMenu.end(), [&foodID](const FoodItem& f) { return f.id == foodID; });
+    /*auto it = std::find_if(foodMenu.begin(), foodMenu.end(), [&foodID](const FoodItem& f) { return f.id == foodID; });
     if (it == foodMenu.end()) {
         std::cout << "Food item not found.\n";
         return;
-    }
+    }*/
 
+    Node* itemNode = foodList->searchByID(foodID);
+    FoodItem* item = &(itemNode -> data);
     // Display selected food details
-    std::cout << "You have selected \"" << it->name << " - " << it->description << "\". This will cost you $ " << it->Price << ".\n";
+    std::cout << "You have selected \"" << item->name << " - " << item->description << "\". This will cost you $ " << item->Price << ".\n";
     std::cout << "Please hand over the money - type in the value of each note/coin in cents.\n";
     std::cout << "Please enter ctrl-D or enter on a new line to cancel this purchase.\n";
 
     // Handle payment
     double totalReceived = 0;
-    double amountDue = it->Price;
+    double amountDue = item->Price;
     int inputCent;
+    std::string userInput;
     bool validInput = true;
 
 
     while (totalReceived < amountDue) {
         std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
+        std::getline(std::cin, userInput);
+        
+
         if (!(std::cin >> inputCent)) {
             std::cin.clear(); // Clear error state
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore incorrect input
@@ -149,7 +157,8 @@ void MainMenu::purchaseMeal() {
         } else {
             // Add the received amount
             totalReceived += inputCent / 100.0;
-            CoinManager::getInstance().addCoin(static_cast<Denomination>(inputCent / 100), 1);
+            auto it = CoinValues.find(inputCent);
+            CoinManager::getInstance().addCoin(it -> second, 1);
         }
     }
 
@@ -163,7 +172,10 @@ void MainMenu::purchaseMeal() {
         }
     }
 
+    item -> on_hand = item -> on_hand - 1;
     std::cout << "Thank you for your purchase!\n";
+    //item -> on_hand = item -> on_hand - 1;
+    //std::cout << item ->on_hand;
 }
 
 
@@ -201,7 +213,7 @@ void MainMenu::addFood() {
                     price = std::stod(userInput);
 
                     // Handle the ID formatting and price conversion
-                    int priceInCents = static_cast<int>(price);  // Convert dollars to cents
+                    //int priceInCents = static_cast<int>(price);  // Convert dollars to cents
                     int nextID = foodList->getNextID();
                     std::stringstream idStream;
                     idStream << 'F' << std::setw(4) << std::setfill('0') << nextID;
@@ -209,7 +221,7 @@ void MainMenu::addFood() {
                     name[0] = std::toupper(name[0]);
 
                     // Create and add a new FoodItem to the list
-                    FoodItem newFood(idStream.str(), name, description, priceInCents);
+                    FoodItem newFood(idStream.str(), name, description, price);
                     foodList->insertSorted(newFood); // Used insertSorted to keep the list in order
     
                     // Confirmation message
@@ -240,7 +252,7 @@ void MainMenu::removeFood() {
     std::cout << "Enter the food ID of the food to remove from the menu: ";
     std::getline(std::cin, foodID);
     if (foodID != ""){
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the input buffer
+        //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the input buffer
 
         Node* itemNode = foodList->searchByID(foodID);  // Utilizing searchByID to find the node
         if (itemNode != nullptr) {
@@ -267,13 +279,17 @@ void MainMenu::displayBalance() {
     std::cout << std::setw(10) << std::left <<  "Denom"  << " | " << std::setw(10) << std::left << "Quantity" << " | " << std::setw(10) << std::left << "Value" << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 
-    for(auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++){
+    auto it = DenominationValues.rend();
+    while (it != DenominationValues.rbegin()){
+        it--;
         int denomValue = it -> second;
         int amount = CoinManager::getInstance().getBalance(it -> first);
         int subtotal = denomValue * amount;
         std::cout << std::setw(10) << std::left <<  denomValue  << " | " << std::setw(10) << std::left << amount << " | " << "$" << std::setw(10) << std::fixed << std::left << std::setprecision(2) << ((double) subtotal)/100 << std::endl;
         total += subtotal;
     }
+
+
     std::cout << "-----------------------------------" << std::endl;
     std::cout << std::setw(27) << std::right << "$" << std::right << std::fixed << std::setprecision(2) << ((double) total) /100 << std::endl;
 }
@@ -282,5 +298,6 @@ void MainMenu::displayBalance() {
 
 void MainMenu::abortProgram() {
     std::cout << "Aborting program...\n";
-    exit(0);
+    hasQuit = true;
+    //exit(0);
 }

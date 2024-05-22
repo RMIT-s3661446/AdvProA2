@@ -12,10 +12,22 @@ enum Denomination {
 };
 
 // Maps enum to its value in cents
+/*static const std::map<Denomination, int> DenominationValues = {
+    {FIFTY_DOLLARS, 5000}, {TWENTY_DOLLARS, 2000}, {TEN_DOLLARS, 1000}, 
+    {FIVE_DOLLARS, 500}, {TWO_DOLLARS, 200}, {ONE_DOLLAR, 100}, {FIFTY_CENTS, 50},
+    {TWENTY_CENTS, 20}, {TEN_CENTS, 10}, {FIVE_CENTS, 5}
+};*/
+
 static const std::map<Denomination, int> DenominationValues = {
     {FIVE_CENTS, 5}, {TEN_CENTS, 10}, {TWENTY_CENTS, 20}, {FIFTY_CENTS, 50},
     {ONE_DOLLAR, 100}, {TWO_DOLLARS, 200}, {FIVE_DOLLARS, 500},
     {TEN_DOLLARS, 1000}, {TWENTY_DOLLARS, 2000}, {FIFTY_DOLLARS, 5000}
+};
+
+static const std::map<int, Denomination> CoinValues = {
+    {5, FIVE_CENTS}, {10, TEN_CENTS}, {20, TWENTY_CENTS}, {50, FIFTY_CENTS},
+    {100, ONE_DOLLAR}, {200, TWO_DOLLARS}, {500, FIVE_DOLLARS},
+    {1000, TEN_DOLLARS}, {2000, TWENTY_DOLLARS}, {5000, FIFTY_DOLLARS}
 };
 
 class CoinManager {

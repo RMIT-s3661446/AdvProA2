@@ -69,10 +69,23 @@ bool CoinManager::provideChange(double change) {
         return false;
     }
     std::cout << "Your change is: ";
+    //int dollars = 0;
+    //int cents = 0;
     for (const auto& ch : changes) {
         int denomValue = DenominationValues.at(ch.first);
-        std::cout << denomValue / 100 << " dollar(s) " << denomValue % 100 << " cent(s) ";
+        int dollars = denomValue / 100;
+        int cents = denomValue % 100;
+        if (cents == 0){
+            //amount = denomValue/dollars;
+            std::cout << ch.second << "x " << dollars << " dollar(s) ";
+        }
+        else if (cents >= 1){
+            std::cout << ch.second << "x " << cents << " cent(s) ";
+        }
+        
+        //std::cout << denomValue / 100 << " dollar(s) " << denomValue % 100 << " cent(s) ";
     }
+    //std::cout << dollars << " dollar(s) " << cents % 100 << " cent(s) ";
     std::cout << std::endl;
     return true;
 }
