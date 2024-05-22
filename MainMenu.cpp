@@ -111,7 +111,8 @@ void MainMenu::displayFoodMenu() {
 void MainMenu::purchaseMeal() {
     std::string foodID;
     std::cout << "Please enter the ID of the food you wish to purchase:\n";
-    std::cin >> foodID;
+    //std::cin >> foodID;
+    std::getline(std::cin, foodID);
 
 
 
@@ -125,7 +126,10 @@ void MainMenu::purchaseMeal() {
     }*/
 
     Node* itemNode = foodList->searchByID(foodID);
-    FoodItem* item = &(itemNode -> data);
+
+    if (itemNode != nullptr){
+
+        FoodItem* item = &(itemNode -> data);
     // Display selected food details
     std::cout << "You have selected \"" << item->name << " - " << item->description << "\". This will cost you $ " << item->Price << ".\n";
     std::cout << "Please hand over the money - type in the value of each note/coin in cents.\n";
@@ -142,16 +146,11 @@ void MainMenu::purchaseMeal() {
     while (totalReceived < amountDue) {
         std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
         std::getline(std::cin, userInput);
-        
 
-        if (!(std::cin >> inputCent)) {
-            std::cin.clear(); // Clear error state
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore incorrect input
-            std::cout << "Transaction cancelled.\n";
-            return;
-        }
-
-        validInput = CoinManager::getInstance().isValidDenomination(inputCent);
+        try
+        {
+            inputCent = std::stoi(userInput);
+            validInput = CoinManager::getInstance().isValidDenomination(inputCent);
         if (!validInput) {
             std::cout << "Error: invalid denomination encountered.\n";
         } else {
@@ -159,6 +158,11 @@ void MainMenu::purchaseMeal() {
             totalReceived += inputCent / 100.0;
             auto it = CoinValues.find(inputCent);
             CoinManager::getInstance().addCoin(it -> second, 1);
+        }
+        }
+        catch(const std::exception& e)
+        {
+            //std::cerr << e.what() << '\n';
         }
     }
 
@@ -174,8 +178,16 @@ void MainMenu::purchaseMeal() {
 
     item -> on_hand = item -> on_hand - 1;
     std::cout << "Thank you for your purchase!\n";
+    std::cout << item ->on_hand;
+
+    }
+    else
+    {std::cout << "No item found" << std::endl;}
+
+    
+    
     //item -> on_hand = item -> on_hand - 1;
-    //std::cout << item ->on_hand;
+    
 }
 
 
@@ -213,7 +225,6 @@ void MainMenu::addFood() {
                     price = std::stod(userInput);
 
                     // Handle the ID formatting and price conversion
-                    //int priceInCents = static_cast<int>(price);  // Convert dollars to cents
                     int nextID = foodList->getNextID();
                     std::stringstream idStream;
                     idStream << 'F' << std::setw(4) << std::setfill('0') << nextID;
