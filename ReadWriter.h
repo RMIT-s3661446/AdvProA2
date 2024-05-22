@@ -11,7 +11,8 @@
 class ReadWriter{
     public:
     static void loadFoodItems(LinkedList* list, std::string fileName);
-    static void saveFoodItems(const LinkedList& list, const std::string& filename);
+    static void saveFoodItems(LinkedList* list, const std::string& filename);
+    static void saveCoins(const std::string &filename);
     static void loadCoins(std::string fileName);
     // static void loadCoinInformation(Coin coins[], std::string fileName);
 };

@@ -46,9 +46,9 @@ void ReadWriter::loadFoodItems(LinkedList *list, std::string fileName)
     file.close();
 }
 
-void ReadWriter::saveFoodItems(const LinkedList &list, const std::string &filename)
+void ReadWriter::saveFoodItems(LinkedList *list, const std::string &filename)
 {
-    std::ofstream file(filename);
+    std::ofstream file(filename, std::ofstream::out | std::ofstream::trunc);
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file for writing: " << filename << std::endl;
@@ -58,8 +58,27 @@ void ReadWriter::saveFoodItems(const LinkedList &list, const std::string &filena
     // Assuming `toString` method that returns all nodes' data as string formatted as required
     //file << list.toString();
 
+    Node* currNode = list -> getHead();
+    while(currNode != nullptr){
+        FoodItem currItem = currNode -> data;
+        file << currItem.id + "|" + currItem.name + "|" + currItem.description + "|" << currItem.Price << std::endl;
+        currNode = currNode -> next;
+    }
+    
+
+
     file.close();
 
+}
+
+
+void ReadWriter::saveCoins(const std::string &filename){
+    
+    std::ofstream file(filename, std::ofstream::out | std::ofstream::trunc);
+
+    for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++){
+        file << it -> second << "," << CoinManager::getInstance().getBalance(it -> first) << std::endl;
+    }
 }
 
 void ReadWriter::loadCoins(std::string fileName)
@@ -104,8 +123,8 @@ void ReadWriter::loadCoins(std::string fileName)
         }
         catch(const std::exception& e)
         {
-            std::cerr << "invalid item" << std::endl;
-            std::cerr << e.what() << std::endl;
+            //std::cerr << "invalid item" << std::endl;
+            //std::cerr << e.what() << std::endl;
         }
         
 

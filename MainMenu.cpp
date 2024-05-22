@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "LinkedList.h"
+#include "ReadWriter.h"
 #include <cctype> 
 
 
@@ -10,8 +11,12 @@ MainMenu::MainMenu()
     userChoice = 0;
 }
 
-MainMenu::MainMenu(LinkedList* foodList){
-    this -> foodList = foodList;
+MainMenu::MainMenu(std::string foodFile, std::string coinFile){
+    this -> foodFile = foodFile;
+    this -> coinFile = coinFile;
+    foodList = new LinkedList();
+    ReadWriter::loadFoodItems(foodList, foodFile);
+    ReadWriter::loadCoins(coinFile);
     hasQuit = false;
     userChoice = 0;
 }
@@ -19,6 +24,8 @@ MainMenu::MainMenu(LinkedList* foodList){
 MainMenu::~MainMenu()
 {
     foodList->clear();
+    delete foodList;
+    foodList = nullptr;
 }
 
 void MainMenu::menuStart()
@@ -70,6 +77,8 @@ bool MainMenu::handleMenuSelection(int option) {
         std::cout << "Saving and exiting.\n";
         // Exits the main loop
         hasQuit = true;
+        ReadWriter::saveFoodItems(foodList, foodFile);
+        ReadWriter::saveCoins(coinFile);
     } else if (option == 4) {
         addFood();
     } else if (option == 5) {
@@ -118,75 +127,63 @@ void MainMenu::purchaseMeal() {
 
     std::vector<FoodItem> foodMenu = foodList->returnFoodVector();
 
-    // Find the food item by ID
-    /*auto it = std::find_if(foodMenu.begin(), foodMenu.end(), [&foodID](const FoodItem& f) { return f.id == foodID; });
-    if (it == foodMenu.end()) {
-        std::cout << "Food item not found.\n";
-        return;
-    }*/
-
     Node* itemNode = foodList->searchByID(foodID);
 
     if (itemNode != nullptr){
 
         FoodItem* item = &(itemNode -> data);
-    // Display selected food details
-    std::cout << "You have selected \"" << item->name << " - " << item->description << "\". This will cost you $ " << item->Price << ".\n";
-    std::cout << "Please hand over the money - type in the value of each note/coin in cents.\n";
-    std::cout << "Please enter ctrl-D or enter on a new line to cancel this purchase.\n";
+        // Display selected food details
+        std::cout << "You have selected \"" << item->name << " - " << item->description << "\". This will cost you $ " << item->Price << ".\n";
+        std::cout << "Please hand over the money - type in the value of each note/coin in cents.\n";
+        std::cout << "Please enter ctrl-D or enter on a new line to cancel this purchase.\n";
 
-    // Handle payment
-    double totalReceived = 0;
-    double amountDue = item->Price;
-    int inputCent;
-    std::string userInput;
-    bool validInput = true;
+        // Handle payment
+        double totalReceived = 0;
+        double amountDue = item->Price;
+        int inputCent;
+        std::string userInput;
+        bool validInput = true;
 
 
-    while (totalReceived < amountDue) {
-        std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
-        std::getline(std::cin, userInput);
+        while (totalReceived < amountDue) {
+            std::cout << "You still need to give us $" << amountDue - totalReceived << ": ";
+            std::getline(std::cin, userInput);
 
-        try
-        {
-            inputCent = std::stoi(userInput);
-            validInput = CoinManager::getInstance().isValidDenomination(inputCent);
-        if (!validInput) {
-            std::cout << "Error: invalid denomination encountered.\n";
-        } else {
-            // Add the received amount
-            totalReceived += inputCent / 100.0;
-            auto it = CoinValues.find(inputCent);
-            CoinManager::getInstance().addCoin(it -> second, 1);
+            try
+            {
+                inputCent = std::stoi(userInput);
+                validInput = CoinManager::getInstance().isValidDenomination(inputCent);
+                if (!validInput) {
+                    std::cout << "Error: invalid denomination encountered.\n";
+                } else {
+                // Add the received amount
+                    totalReceived += inputCent / 100.0;
+                    auto it = CoinValues.find(inputCent);
+                    CoinManager::getInstance().addCoin(it -> second, 1);
+            }
+            }
+            catch(const std::exception& e)
+            {
+                //std::cerr << e.what() << '\n';
+            }
+        }   
+
+        // Calculate change if overpaid
+        double change = totalReceived - amountDue;
+        if (change > 0) {
+            if (!CoinManager::getInstance().provideChange(change)) {
+                std::cout << "Unable to provide correct change. Transaction cancelled.\n";
+                CoinManager::getInstance().refund(totalReceived);
+                return;
+            }
         }
+
+        item -> on_hand = item -> on_hand - 1;
+        std::cout << "Thank you for your purchase!\n";
+
         }
-        catch(const std::exception& e)
-        {
-            //std::cerr << e.what() << '\n';
-        }
-    }
-
-    // Calculate change if overpaid
-    double change = totalReceived - amountDue;
-    if (change > 0) {
-        if (!CoinManager::getInstance().provideChange(change)) {
-            std::cout << "Unable to provide correct change. Transaction cancelled.\n";
-            CoinManager::getInstance().refund(totalReceived);
-            return;
-        }
-    }
-
-    item -> on_hand = item -> on_hand - 1;
-    std::cout << "Thank you for your purchase!\n";
-    std::cout << item ->on_hand;
-
-    }
-    else
-    {std::cout << "No item found" << std::endl;}
-
-    
-    
-    //item -> on_hand = item -> on_hand - 1;
+        else
+        {std::cout << "No item found" << std::endl;}
     
 }
 

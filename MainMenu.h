@@ -2,7 +2,7 @@
 #define MENU_H
 
 #include "LinkedList.h"
-#include "LinkedList.h"
+#include "ReadWriter.h"
 
 #include <iostream>
 #include <fstream>
@@ -18,7 +18,7 @@ class MainMenu {
     public:
 
     MainMenu();
-    MainMenu(LinkedList* foodList);
+    MainMenu(std::string foodFile, std::string coinFile);
     ~MainMenu();
 
 
@@ -34,6 +34,8 @@ class MainMenu {
     bool hasQuit;
     int userChoice;
     LinkedList* foodList;
+    std::string foodFile;
+    std::string coinFile;
     //Coin coins[];
 
 

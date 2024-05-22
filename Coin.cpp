@@ -14,7 +14,7 @@ bool CoinManager::subtractCoin(Denomination denom, unsigned num) {
 }
 
 bool CoinManager::canProvideChange(double amount) {
-    int cents = amount * 100; //static_cast<int>(round(amount * 100));
+    int cents = amount * 100;
     auto backup = coins;
     for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); ++it) {
         while (cents >= it->second && coins[it->first] > 0) {
@@ -23,7 +23,7 @@ bool CoinManager::canProvideChange(double amount) {
         }
     }
     coins = backup;
-    //std::cout<< "DEBUG: " << cents << std::endl;
+
     return cents == 0;
 }
 
@@ -35,6 +35,7 @@ std::vector<std::pair<Denomination, unsigned>> CoinManager::getChange(double amo
         while (cents >= it->second && coins[it->first] > 0) {
             cents -= it->second;
             coins[it->first]--;
+            std::cout << coins[it -> first] << std::endl;
             count++;
         }
         if (count > 0) {
@@ -65,18 +66,15 @@ void CoinManager::refund(double totalReceived) {
 
 bool CoinManager::provideChange(double change) {
     auto changes = getChange(change);
-    if (getChange(change).empty()) {
+    if (changes.empty()) {
         return false;
     }
     std::cout << "Your change is: ";
-    //int dollars = 0;
-    //int cents = 0;
     for (const auto& ch : changes) {
         int denomValue = DenominationValues.at(ch.first);
         int dollars = denomValue / 100;
         int cents = denomValue % 100;
         if (cents == 0){
-            //amount = denomValue/dollars;
             std::cout << ch.second << "x " << dollars << " dollar(s) ";
         }
         else if (cents >= 1){

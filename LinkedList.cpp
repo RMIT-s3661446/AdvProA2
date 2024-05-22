@@ -194,6 +194,12 @@ void LinkedList::sortByName(){
     mergeSort(head);
 }
 
+Node *LinkedList::getHead()
+{
+    return head;
+}
+
+
 
 void LinkedList::clear()
 {

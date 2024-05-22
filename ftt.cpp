@@ -26,13 +26,13 @@
 int main(int argc, char **argv)
 {
 
-    LinkedList* foodList = new LinkedList();
-    MainMenu* menu = new MainMenu(foodList);
-    ReadWriter::loadFoodItems(foodList, argv[1]);
-    ReadWriter::loadCoins("coins.dat");
+    //LinkedList* foodList = new LinkedList();
+    MainMenu* menu = new MainMenu(argv[1], argv[2]);
+    //ReadWriter::loadFoodItems(foodList, argv[1]);
+    //ReadWriter::loadCoins("coins.dat");
     menu -> menuStart();
-    foodList -> clear();
+    //foodList -> clear();
     delete menu;
-    delete foodList;
+    //delete foodList;
     return EXIT_SUCCESS;
 }

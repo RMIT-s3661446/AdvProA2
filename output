@@ -1,0 +1,63 @@
+Main Menu:
+   1. Display Meal Options
+   2. Purchase Meal
+   3. Save and Exit
+Administrator-Only Menu:
+   4. Add Food
+   5. Remove Food
+   6. Display Balance
+   7. Abort Program
+Select your choice: 
+Please enter the ID of the food you wish to purchase:
+You have selected "Baklava - Rich middle eastern cake of thin layers of flaky pastry filled with nuts and honey". This will cost you $ 8.5.
+Please hand over the money - type in the value of each note/coin in cents.
+Please enter ctrl-D or enter on a new line to cancel this purchase.
+You still need to give us $8.5: Your change is: 2x 20 dollar(s) 1x 1 dollar(s) 1x 50 cent(s) 
+Thank you for your purchase!
+Main Menu:
+   1. Display Meal Options
+   2. Purchase Meal
+   3. Save and Exit
+Administrator-Only Menu:
+   4. Add Food
+   5. Remove Food
+   6. Display Balance
+   7. Abort Program
+Select your choice: 
+Please enter a number for the option!!
+
+Main Menu:
+   1. Display Meal Options
+   2. Purchase Meal
+   3. Save and Exit
+Administrator-Only Menu:
+   4. Add Food
+   5. Remove Food
+   6. Display Balance
+   7. Abort Program
+Select your choice: 
+Denom      | Quantity   | Value     
+-----------------------------------
+5          | 20         | $1.00      
+10         | 40         | $4.00      
+20         | 3          | $0.60      
+50         | 3          | $1.50      
+100        | 28         | $28.00     
+200        | 20         | $40.00     
+500        | 6          | $30.00     
+1000       | 10         | $100.00    
+2000       | 6          | $120.00    
+5000       | 10         | $500.00    
+-----------------------------------
+                          $825.10
+Main Menu:
+   1. Display Meal Options
+   2. Purchase Meal
+   3. Save and Exit
+Administrator-Only Menu:
+   4. Add Food
+   5. Remove Food
+   6. Display Balance
+   7. Abort Program
+Select your choice: 
+Saving and exiting.
