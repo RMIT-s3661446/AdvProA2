@@ -234,101 +234,137 @@ Node *LinkedList::searchByID(std::string itemID)
     return returnNode;
 }
 
+// Return the size of the list
 int LinkedList::size()
 {
     //std::cout << head -> data.name << std::endl;
     return count;
 }
 
-
+// Sort the list by the name of the FoodItem
 void LinkedList::sortByName(){
+    // Sort the list using merge sort
     mergeSort(head);
 }
 
+// Get the head node of the list
 Node *LinkedList::getHead()
 {
+    // Return the head node
     return head;
 }
 
 
-
+// Clear the entire list
 void LinkedList::clear()
 {
+    // Start from the head node
     Node* current = head;
+    // Pointer to the next node
     Node* nextNode;
 
+    // Iterate through the list and delete each node
     while (current != nullptr){
+        // Store the next node
         nextNode = current -> next;
+        // Delete the current node
         delete current;
+        // Move to the next node
         current = nextNode;
     }
-
+    // Set head to nullptr
     head = nullptr;
 
 }
 
+// Return a vector of FoodItems from the list
 std::vector<FoodItem> LinkedList::returnFoodVector()
 {
+     // Vector to store FoodItems
     std::vector<FoodItem> foodVector;
-    
+     // Iterate through the list and add each FoodItem to the vector
     if (head != nullptr){
+        // Start from the head node
         Node* tempNode = head;
         while (tempNode != nullptr){
+            // Add the FoodItem to the vector
             foodVector.push_back(tempNode ->data);
+             // Move to the next node
             tempNode = tempNode -> next;
         }
     }
-
+    // Return the vector of FoodItems
     return foodVector;
 }
 
+// Merge sort the list
 Node *LinkedList::mergeSort(Node *head)
 {
+    // Pointer to the sorted list
     Node* result = nullptr;
+     // Check if the list is empty or has only one node
     if (head == nullptr || head -> next == nullptr){
+        // Return the head node if list is empty or single node
         result = head;
     }
     else {
+        // Split the list into two halves
+        // Slow pointer
         Node* slow = head;
+        // Fast pointer
         Node* fast = head -> next;
         while (fast != nullptr && fast -> next != nullptr){
+            // Move slow pointer one step
             slow = slow -> next;
+            // Move fast pointer two steps
             fast = fast -> next -> next;
         }
+        // Middle of the list
         Node* mid = slow -> next;
+         // Split the list
         slow -> next = nullptr;
 
+        // Recursively sort the two halves
         Node* left = mergeSort(head);
         Node* right = mergeSort(mid);
 
+        // Merge the sorted halves
         result = merge(left, right);
 
         //return result;
     }
     
-    
+    // Return the sorted list
     return result;
 }
 
+// Merge two sorted lists
 Node *LinkedList::merge(Node *left, Node *right)
 {
+     // Pointer to the merged list
     Node* result = nullptr;
-
+    // Merge the nodes in sorted order
     if (left == nullptr){
+        // If left is empty, return right
         result = right;
     }
     else if (right == nullptr){
+        // If right is empty, return left
         result = left;
     }
     else if(left -> data.name <= right -> data.name){
+         // If left node is smaller or equal, set result to left
         result = left;
+        // Recursively merge the rest
         result -> next = merge(left -> next, right);
     }
     else if(right -> data.name <= left -> data.name){
+        // If right node is smaller, set result to right
         result = right;
+        // Recursively merge the rest
         result -> next = merge (left, right -> next);
     }
-
+    // Return the merged list
     return result;
     
 }
