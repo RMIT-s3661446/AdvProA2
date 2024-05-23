@@ -45,7 +45,6 @@ std::vector<std::pair<Denomination, unsigned>> CoinManager::getChange(double amo
         while (cents >= it->second && coins[it->first] > 0) {
             cents -= it->second;
             coins[it->first]--;
-            std::cout << coins[it -> first] << std::endl;
             count++;
         }
         if (count > 0) {
