@@ -78,11 +78,6 @@ void CoinManager::refund(double totalReceived) {
     // Here you would typically add logic to return coins
 }
 
-void CoinManager::refund(double totalReceived) {
-    std::cout << "Refunding $" << totalReceived << std::endl;
-    // Here you would typically add logic to return coins
-}
-
 
 // Provide change for a given amount
 // Returns false if exact change cannot be provided
