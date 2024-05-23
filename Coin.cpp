@@ -64,6 +64,12 @@ void CoinManager::refund(double totalReceived) {
     // Here you would typically add logic to return coins
 }
 
+void CoinManager::refund(double totalReceived) {
+    std::cout << "Refunding $" << totalReceived << std::endl;
+    // Here you would typically add logic to return coins
+}
+
+
 bool CoinManager::provideChange(double change) {
     auto changes = getChange(change);
     if (changes.empty()) {
