@@ -227,20 +227,16 @@ void MainMenu::purchaseMeal()
                     {
                         std::cout << "Unable to provide correct change. Transaction cancelled.\n";
                         // Refund the total received amount
-                        
                     }
                     else
                     {
-                        
-                        CoinManager::getInstance().refund(totalReceived);
 
+                        CoinManager::getInstance().refund(totalReceived);
                     }
-                        // Deduct one unit from the item's stock
-                    
+                    // Deduct one unit from the item's stock
                 }
                 item->on_hand = item->on_hand - 1;
-                    std::cout << item->on_hand;
-                    std::cout << "Thank you for your purchase!\n";
+                std::cout << "Thank you for your purchase!\n";
             }
             else
             {
