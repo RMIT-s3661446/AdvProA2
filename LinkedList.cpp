@@ -53,20 +53,24 @@ void LinkedList::insertAtEnd(const FoodItem& item){
 //method to get the next available ID
 int LinkedList::getNextID() {
     // Return the first ID if list is empty
-    if (head == nullptr) return 1;
-
-    Node* current = head;
-   // Variable to track the maximum ID found
     int maxID = 0; 
+    if (head == nullptr) {maxID = 0;}
+    else{
+        Node* current = head;
+        // Variable to track the maximum ID found
+    
 
-    // Loop through all nodes to find the highest ID
-    while (current != nullptr) {
-        int currentID = std::stoi(current->data.id.substr(1)); 
-        if (currentID > maxID) {
-            maxID = currentID;
+        // Loop through all nodes to find the highest ID
+        while (current != nullptr) {
+            int currentID = std::stoi(current->data.id.substr(1)); 
+            if (currentID > maxID) {
+                maxID = currentID;
+            }
+            current = current->next;
         }
-        current = current->next;
     }
+
+    
     // Return the next highest ID
     return maxID + 1; 
 }
@@ -148,7 +152,7 @@ void LinkedList::deleteFromEnd(){
         else{
             Node* lastNode = head; 
             Node* deletedNode;
-           //starts looking for the second last node
+         //starts looking for the second last node
             while(lastNode -> next -> next != nullptr){ 
                 lastNode = lastNode -> next;
             }

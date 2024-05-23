@@ -81,7 +81,8 @@ void ReadWriter::saveCoins(const std::string &filename){
     // Open the file for writing (truncate the file if it exists)
     std::ofstream file(filename, std::ofstream::out | std::ofstream::trunc);
     // Check if the file opened successfully
-    if (!file.is_open()){
+    if (!file.is_open()){}
+    else{
      // Iterate through the denomination values in reverse order and write to the file
     for (auto it = DenominationValues.rbegin(); it != DenominationValues.rend(); it++){
         file << it -> second << "," << CoinManager::getInstance().getBalance(it -> first) << std::endl;
