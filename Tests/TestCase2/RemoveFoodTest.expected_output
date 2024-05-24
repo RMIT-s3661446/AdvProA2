@@ -15,8 +15,6 @@ ID    |Name      |Description                                                   
 F0001 |Baklava   |Rich middle eastern cake of thin layers of flaky pastry filled with...|      8.50
 F0005 |Bibimbab  |Spicy Korean rice dish with vegetables, bean paste and beef           |     15.80
 F0006 |Fondue    |European dish of assorted melted cheeses. Served with bread for dip...|     31.50
-F0002 |Gnocchi   |Italian pasta dish made from potato and served with a rich cheese s...|     12.50
-F0003 |Haggis    |Scottish delicacy made from tripe and oats and served with whiskey ...|     18.70
 F0004 |Jambalaya |Creole rish dish containing prawns, chicken, sausage and vegetables   |     23.00
 F0007 |Kelewele  |From Ghana, fried plantains seasoned with spices                      |     11.50
 Main Menu:
@@ -29,7 +27,8 @@ Administrator-Only Menu:
    6. Display Balance
    7. Abort Program
 Select your choice: 
-Enter the food ID of the food to remove from the menu: No item found with ID F02
+Enter the food ID of the food to remove from the menu: 
+"F0004 - Jambalaya - Creole rish dish containing prawns, chicken, sausage and vegetables" is being removed from the system.
 Main Menu:
    1. Display Meal Options
    2. Purchase Meal
@@ -40,4 +39,22 @@ Administrator-Only Menu:
    6. Display Balance
    7. Abort Program
 Select your choice: 
-Saving and exiting.
+Food Menu
+--------------------------------------------------------------------------------------------------
+ID    |Name      |Description                                                           |     Price
+--------------------------------------------------------------------------------------------------
+F0001 |Baklava   |Rich middle eastern cake of thin layers of flaky pastry filled with...|      8.50
+F0005 |Bibimbab  |Spicy Korean rice dish with vegetables, bean paste and beef           |     15.80
+F0006 |Fondue    |European dish of assorted melted cheeses. Served with bread for dip...|     31.50
+F0007 |Kelewele  |From Ghana, fried plantains seasoned with spices                      |     11.50
+Main Menu:
+   1. Display Meal Options
+   2. Purchase Meal
+   3. Save and Exit
+Administrator-Only Menu:
+   4. Add Food
+   5. Remove Food
+   6. Display Balance
+   7. Abort Program
+Select your choice: 
+Aborting program...

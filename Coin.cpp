@@ -97,10 +97,7 @@ bool CoinManager::provideChange(double change) {
         else if (cents >= 1){
             std::cout << ch.second << "x " << cents << " cent(s) ";
         }
-        
-        //std::cout << denomValue / 100 << " dollar(s) " << denomValue % 100 << " cent(s) ";
     }
-    //std::cout << dollars << " dollar(s) " << cents % 100 << " cent(s) ";
     std::cout << std::endl;
     return true;
 }

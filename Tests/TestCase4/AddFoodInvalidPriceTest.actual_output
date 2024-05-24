@@ -8,8 +8,7 @@ Administrator-Only Menu:
    6. Display Balance
    7. Abort Program
 Select your choice: 
-Enter the item name:Enter the item description:Enter the price for this item (in dollars and cents, e.g., 5.25):
-Please enter the number
+Enter the item name: Enter the item description: Enter the price for this item (in dollars and cents, e.g., 5.25): Please enter the number
 Main Menu:
    1. Display Meal Options
    2. Purchase Meal
@@ -20,4 +19,4 @@ Administrator-Only Menu:
    6. Display Balance
    7. Abort Program
 Select your choice: 
-Saving and exiting.
+Aborting program...
